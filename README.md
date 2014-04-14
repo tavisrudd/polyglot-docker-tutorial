@@ -46,7 +46,7 @@ additional software is required.
 **Note**: This is a work in progress. Please watch this repo for
 updates. The timing is currently a bit off.
 
-#### 1. Introductions, Overview and Setup (9am, 30min)
+#### 1. Introductions, Overview and Setup (8am, 30min)
 #### 2. Core Concepts and Hello World (20min)
 
 #### 3. Command Line Interface and Bash Scripting (30min)
@@ -59,13 +59,13 @@ updates. The timing is currently a bit off.
 * Single process approach 
 * more traditional vm-like init + procs
 
-#### Lunch (12 - 12:40pm)
+#### Lunch (12 - 1pm)
 
 #### 7. Volume and Image Management (30min)
 #### 8. Intermediate Networking (30min)
 
 #### 9. Service Discovery (30min)
-* inter-container links
+* inter-container links and problems with this approach
 * DNS with skydock
 * etcd
 
