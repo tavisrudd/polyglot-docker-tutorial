@@ -83,3 +83,5 @@ updates. The timing is currently a bit off.
 * Open vSwitch
 
 ### Concluding Remarks and Discussion (4:30pm)
+* http://12factor.net/
+* Phoenix Servers
