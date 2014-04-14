@@ -54,6 +54,7 @@ updates. The timing is currently a bit off.
 
 #### 5. Build files (30min)
 * Build files vs other approaches for creating images (direct scripting or config management)
+
 #### 6. Process/container Supervision (30min)
 * Single process approach 
 * more traditional vm-like init + procs
