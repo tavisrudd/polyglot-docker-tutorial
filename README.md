@@ -64,8 +64,8 @@ updates. The timing is currently a bit off.
 #### 8. Intermediate Networking (30min)
 
 #### 9. Service Discovery (30min)
-* intercontainers links
-* dns with skydock
+* inter-container links
+* DNS with skydock
 * etcd
 
 #### 10. Monitoring, Logging and Error Detection (20min)
