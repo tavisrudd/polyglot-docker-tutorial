@@ -42,7 +42,9 @@ additional software is required.
   before the class.
 
 ### Syllabus
-**Note**: This is a work in progress. Please watch this repo for updates.
+
+**Note**: This is a work in progress. Please watch this repo for
+updates. The timing is currently a bit off.
 
 #### 1. Introductions, Overview and Setup (9am, 30min)
 #### 2. Core Concepts and Hello World (20min)
@@ -61,10 +63,11 @@ additional software is required.
 #### 7. Volume and Image Management (30min)
 #### 8. Intermediate Networking (30min)
 
-#### 9. Service Discovery (20)
+#### 9. Service Discovery (30min)
 * intercontainers links
 * dns with skydock
 * etcd
+
 #### 10. Monitoring, Logging and Error Detection (20min)
 
 #### 11. Sample Use Cases 
@@ -72,8 +75,7 @@ additional software is required.
 ##### Managing OpenVPN (10min)
 ##### Running Postgresql and Other DBs (15min)
 ##### CoreOS and Cluster Deployment with Fleet (30min)
-##### [_Blockade_](http://blockade.readthedocs.org/en/latest/index.html) for Testing Network Failures
-(15min)
+##### [_Blockade_](http://blockade.readthedocs.org/en/latest/index.html) for Testing Network Failures (15min)
 
 ### 12. Advanced Networking (40min)
 * pipework
