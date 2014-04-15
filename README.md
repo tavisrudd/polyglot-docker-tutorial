@@ -72,8 +72,6 @@ updates. The timing is currently a bit off.
 * tradeoffs and use cases for each
 * process supervision within and between containers
 
-#### Lunch (12 - 1pm)
-
 #### 7. Image Management and Volumes (30min)
 * public index
 * trusted builds
@@ -89,6 +87,8 @@ updates. The timing is currently a bit off.
 * intercontainer networking 
   via -icc or custom bridges and lxc network options
 * trouble-shooting
+
+#### Lunch (12 - 1pm)
 
 #### 9. Service Discovery & Ambassador Pattern (30min)
 * inter-container links and problems with this approach
