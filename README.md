@@ -107,13 +107,13 @@ updates. The timing is currently a bit off.
 #### 12. Docker on EC2
 
 #### 13. Sample Use Cases 
-##### Automated Test Runs via Jenkins (15min)
-##### Managing OpenVPN (10min)
-##### Running Postgresql and Other DBs (15min)
-##### CoreOS and Cluster Deployment with Fleet (30min)
-##### [_Blockade_](http://blockade.readthedocs.org/en/latest/index.html) for Testing Network Failures (15min)
-##### mention of https://github.com/mesosphere/mesos-docker
-##### ...
+* Automated Test Runs via Jenkins (15min)
+* Managing OpenVPN (10min)
+* Running Postgresql and Other DBs (15min)
+* CoreOS and Cluster Deployment with Fleet (30min)
+* [_Blockade_](http://blockade.readthedocs.org/en/latest/index.html) for Testing Network Failures (15min)
+* mention of https://github.com/mesosphere/mesos-docker
+* ...
 
 ### Concluding Remarks and Discussion (4:40pm)
 * http://12factor.net/
