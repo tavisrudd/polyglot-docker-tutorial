@@ -24,6 +24,9 @@ larger systems with clusters of interlinked containers. You will leave
 with the skills and confidence to use Docker in a wide range of
 settings.
 
+We will be learning via hands-on examples and exercises rather than via
+lecture.
+
 ### Requirements
 
 Students should come with a laptop, a text editor, a terminal emulator
@@ -37,14 +40,17 @@ additional software is required.
 * If you're not already familiar with Bash and basic Python, please do
   some self study first.
 * I want you to spend the tutorial day active at the keyboard not
-  listening to me passively. To that end, please watch [this 47 min.
-  introductory video](https://www.youtube.com/watch?v=Q5POuMHxW-0)
-  before the class.
+  listening to me passively. To that end, please watch [this 57 min.
+  introductory
+  screencast](https://www.youtube.com/watch?v=LNAzzHS1Rho) before the
+  class. If you are keen and have extra time, also watch 
+  [this talk](https://www.youtube.com/watch?v=Q5POuMHxW-0) by
+  Solomon Hykes.
 
 ### Syllabus
 
 **Note**: This is a work in progress. Please watch this repo for
-updates. The timing is currently a bit off.
+updates. The timing is currently a bit off. 
 
 #### 1. Introductions, Overview and Setup (8am, 30min)
 #### 2. Core Concepts and Hello World (20min)
@@ -53,35 +59,62 @@ updates. The timing is currently a bit off.
 #### 4. Using the API via Python + Basic Networking (30min)
 
 #### 5. Build files (30min)
-* Build files vs other approaches for creating images (direct scripting or config management)
+* Build files basics 
+* vs other approaches for creating images (tarball imports, etc.)
+* integration with config management tools
 
-#### 6. Process/container Supervision (30min)
-* Single process approach 
-* more traditional vm-like init + procs
+#### 6. Processes & Supervision (30min)
+* Docker's single process philosphy
+* versus more traditional vm-like init + procs
+* tradeoffs and use cases for each
+* process supervision within and between containers
 
 #### Lunch (12 - 1pm)
 
-#### 7. Volume and Image Management (30min)
-#### 8. Intermediate Networking (30min)
+#### 7. Image Management and Volumes (30min)
+* public index
+* trusted builds
+* using a private registry
+* host bind mounts of volumes
+* -volumes-from for data volume sharing
+* using btrfs for snapshots of data volumes
 
-#### 9. Service Discovery (30min)
+#### 8. Intermediate Networking (30min)
+* exposing ports and binding to host interfaces
+* dns options
+* network bridging
+* intercontainer networking 
+  via -icc or custom bridges and lxc network options
+* trouble-shooting
+
+#### 9. Service Discovery & Ambassador Pattern (30min)
 * inter-container links and problems with this approach
 * DNS with skydock
 * etcd
 
-#### 10. Monitoring, Logging and Error Detection (20min)
+#### 10. Monitoring, Logging and Error Detection (30min)
+* logging via stdout
+* logging via syslog or logstash to a log service container
+* docker events api
+* https://github.com/samalba/docker-cache
+* with sensu
 
-#### 11. Sample Use Cases 
+#### 11. Advanced Networking (30min)
+* configuring alternate local network topologies via pipework
+* software defined networking via Open vSwitch
+* overhead of various approaches
+
+#### 12. Docker on EC2
+
+#### 13. Sample Use Cases 
 ##### Automated Test Runs via Jenkins (15min)
 ##### Managing OpenVPN (10min)
 ##### Running Postgresql and Other DBs (15min)
 ##### CoreOS and Cluster Deployment with Fleet (30min)
 ##### [_Blockade_](http://blockade.readthedocs.org/en/latest/index.html) for Testing Network Failures (15min)
+##### mention of https://github.com/mesosphere/mesos-docker
+##### ...
 
-### 12. Advanced Networking (40min)
-* pipework
-* Open vSwitch
-
-### Concluding Remarks and Discussion (4:30pm)
+### Concluding Remarks and Discussion (4:40pm)
 * http://12factor.net/
-* Phoenix Servers
+* Immutable Infrastructure and 'Phoenix' Servers
