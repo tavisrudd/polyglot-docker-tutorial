@@ -1,6 +1,9 @@
 # Docker in Depth
 ## Polyglot Conference 2014 Workshop
 
+### Tickets
+Tickets can be purchased at https://www.picatic.com/polyglot-software-workshops
+
 ### Abstract
 
 [Docker](https://www.docker.io/learn_more/) is an open-source engine
