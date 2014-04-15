@@ -118,6 +118,8 @@ updates. The timing is currently a bit off.
 * mention of https://github.com/mesosphere/mesos-docker
 * ...
 
+#### 14. TLC, Garbage Collection and Handling Upgrades
+
 ### Concluding Remarks and Discussion (4:40pm)
 * http://12factor.net/
 * Immutable Infrastructure and 'Phoenix' Servers
