@@ -65,6 +65,7 @@ updates. The timing is currently a bit off.
 * Build files basics 
 * vs other approaches for creating images (tarball imports, etc.)
 * integration with config management tools
+* application packaging and configuration
 
 #### 6. Processes & Supervision (30min)
 * Docker's single process philosphy
@@ -109,7 +110,11 @@ updates. The timing is currently a bit off.
 
 #### 12. Docker on EC2
 
-#### 13. Sample Use Cases 
+#### 13. Application Lifecycle 
+* options for handling of releases and configuration changes
+* rollbacks
+
+#### 14. Sample Use Cases 
 * Automated Test Runs via Jenkins (15min)
 * Managing OpenVPN (10min)
 * Running Postgresql and Other DBs (15min)
@@ -118,7 +123,7 @@ updates. The timing is currently a bit off.
 * mention of https://github.com/mesosphere/mesos-docker
 * ...
 
-#### 14. TLC, Garbage Collection and Handling Upgrades
+#### 15. TLC, Garbage Collection and Handling Upgrades
 
 ### Concluding Remarks and Discussion (4:40pm)
 * http://12factor.net/
