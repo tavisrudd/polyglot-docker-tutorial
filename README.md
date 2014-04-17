@@ -55,11 +55,14 @@ additional software is required.
 **Note**: This is a work in progress. Please watch this repo for
 updates. The timing is currently a bit off. 
 
-#### 1. Introductions, Overview and Setup (8am, 30min)
+#### 1. Introductions, Overview and Setup (8am, 20min)
 #### 2. Core Concepts and Hello World (20min)
 
 #### 3. Command Line Interface and Bash Scripting (30min)
 #### 4. Using the API via Python + Basic Networking (30min)
+
+#### Interlude
+* http://12factor.net/
 
 #### 5. Build files (30min)
 * Build files basics 
@@ -68,7 +71,7 @@ updates. The timing is currently a bit off.
 * application packaging and configuration
 
 #### 6. Processes & Supervision (30min)
-* Docker's single process philosphy
+* Docker's single process philosophy
 * versus more traditional vm-like init + procs
 * tradeoffs and use cases for each
 * process supervision within and between containers
@@ -126,5 +129,4 @@ updates. The timing is currently a bit off.
 #### 15. TLC, Garbage Collection and Handling Upgrades
 
 ### Concluding Remarks and Discussion (4:40pm)
-* http://12factor.net/
 * Immutable Infrastructure and 'Phoenix' Servers
