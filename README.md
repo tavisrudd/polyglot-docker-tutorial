@@ -55,10 +55,18 @@ additional software is required.
 **Note**: This is a work in progress. Please watch this repo for
 updates. The timing is currently a bit off. 
 
-#### 1. Introductions, Overview and Setup (8am, 20min)
+#### 1. Introductions, Overview and Setup (8am, 15min)
+
 #### 2. Core Concepts and Hello World (20min)
+* containerization is an old concept, Linux late to the game
+* kernel namespaces & cgroups
+* lxc
+* docker containers
+* docker images & image layers
+* why we care
 
 #### 3. Command Line Interface and Bash Scripting (30min)
+
 #### 4. Using the API via Python + Basic Networking (30min)
 
 #### Interlude
@@ -98,6 +106,7 @@ updates. The timing is currently a bit off.
 * inter-container links and problems with this approach
 * DNS with skydock
 * etcd
+* consul.io
 
 #### 10. Monitoring, Logging and Error Detection (30min)
 * logging via stdout
