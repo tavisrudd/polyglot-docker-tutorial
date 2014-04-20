@@ -56,6 +56,9 @@ additional software is required.
 updates. The timing is currently a bit off. 
 
 #### 1. Introductions, Overview and Setup (8am, 15min)
+* validate ssh keypairs / IAM accounts
+* name badges
+* 30sec round the room intros
 
 #### 2. Core Concepts and Hello World (20min)
 * containerization is an old concept, Linux late to the game
@@ -105,6 +108,7 @@ updates. The timing is currently a bit off.
 #### 9. Service Discovery & Ambassador Pattern (30min)
 * inter-container links and problems with this approach
 * DNS with skydock
+* mention ZK
 * etcd
 * consul.io
 
@@ -115,12 +119,17 @@ updates. The timing is currently a bit off.
 * https://github.com/samalba/docker-cache
 * with sensu
 
+#### Interlude
+* Security & multi-tenant: caveat emptor
+
 #### 11. Advanced Networking (30min)
 * configuring alternate local network topologies via pipework
 * software defined networking via Open vSwitch
 * overhead of various approaches
 
 #### 12. Docker on EC2
+* distro requirements
+* launching a docker host via boto
 
 #### 13. Application Lifecycle 
 * options for handling of releases and configuration changes
@@ -135,7 +144,7 @@ updates. The timing is currently a bit off.
 * mention of https://github.com/mesosphere/mesos-docker
 * ...
 
-#### 15. TLC, Garbage Collection and Handling Upgrades
+#### 15. TLC, Garbage Collection and Handling Docker Upgrades
 
 ### Concluding Remarks and Discussion (4:40pm)
 * Immutable Infrastructure and 'Phoenix' Servers
