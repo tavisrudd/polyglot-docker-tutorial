@@ -64,11 +64,29 @@ updates. The timing is currently a bit off.
 * containerization is an old concept, Linux late to the game
 * kernel namespaces & cgroups
 * lxc
-* docker containers
-* docker images & image layers
+* docker containers, images & image layers
 * why we care
+* hello world
+  * running a container in the foreground
+  * running it in the background and inspecting the logs
+  * running bash inside to inspect the env, network and file system
 
 #### 3. Command Line Interface and Bash Scripting (30min)
+* container related commands
+  * run, stop, start, restart, kill, wait
+  * ps, inspect, top, logs, port
+  * attach
+  * diff, cp, commit
+  * rm
+* using command outputs and exit codes for scripting in bash
+* image related 
+  * images
+  * pull
+  * import
+  * tag
+  * inspect
+  * history
+  * save/load
 
 #### 4. Using the API via Python + Basic Networking (30min)
 
