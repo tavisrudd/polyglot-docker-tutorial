@@ -84,11 +84,19 @@ updates. The timing is currently a bit off.
   * pull
   * import
   * tag
+  * push
   * inspect
   * history
   * save/load
 
 #### 4. Using the API via Python + Basic Networking (30min)
+* https://github.com/dotcloud/docker-py
+* local via unix domain socket
+* remote http auth
+* differences between equivalent cli commands
+* using the api integrated into ansible & salt:
+ * http://docs.ansible.com/docker_module.html
+ * http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerio.html
 
 #### Interlude
 * http://12factor.net/
