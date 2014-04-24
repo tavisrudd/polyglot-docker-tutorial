@@ -120,6 +120,8 @@ updates. The timing is currently a bit off.
 * host bind mounts of volumes
 * -volumes-from for data volume sharing
 * using btrfs for snapshots of data volumes
+* current limitations of volume management in docker
+  * manual garbage collection needed
 
 #### 8. Intermediate Networking (30min)
 * exposing ports and binding to host interfaces
@@ -132,11 +134,12 @@ updates. The timing is currently a bit off.
 #### Lunch (12 - 1pm)
 
 #### 9. Service Discovery & Ambassador Pattern (30min)
-* inter-container links and problems with this approach
-* DNS with skydock
-* mention ZK
-* etcd
-* consul.io
+* simple inter-container links and problems with this approach
+* more sophisticated and reliable approaches
+  * DNS with skydock
+  * mention ZK
+  * etcd
+  * consul.io
 
 #### 10. Monitoring, Logging and Error Detection (30min)
 * logging via stdout
@@ -147,15 +150,17 @@ updates. The timing is currently a bit off.
 
 #### Interlude
 * Security & multi-tenant: caveat emptor
+* point to selinux, but not covered
 
 #### 11. Advanced Networking (30min)
 * configuring alternate local network topologies via pipework
 * software defined networking via Open vSwitch
 * overhead of various approaches
+* resources for learning more about advanced linux networking
 
 #### 12. Docker on EC2
-* distro requirements
-* launching a docker host via boto
+* distro requirements and a few amis ready to go
+* bootstrapping a docker host via boto
 
 #### 13. Application Lifecycle 
 * options for handling of releases and configuration changes
