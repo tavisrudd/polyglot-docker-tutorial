@@ -50,6 +50,15 @@ additional software is required.
   [this talk](https://www.youtube.com/watch?v=Q5POuMHxW-0) by
   Solomon Hykes.
 
+### Pre-Workshop Questionnaire
+* Where do you work and what on?
+* Programming skill level?
+* Level of sysadmin / 'devops' experience?
+* Used lxc or Docker before?
+* Any experience with configuration management tools?
+* What do you hope to get out of the class? Any particular requests?
+* How do you plan on using Docker after the class?
+
 ### Syllabus
 
 **Note**: This is a work in progress. Please watch this repo for
@@ -164,7 +173,8 @@ updates. The timing is currently a bit off.
 
 #### 13. Application Lifecycle 
 * options for handling of releases and configuration changes
-* rollbacks
+* atomic changes
+* rollback option via layers/tags
 
 #### 14. Sample Use Cases 
 * Automated Test Runs via Jenkins (15min)
@@ -176,6 +186,8 @@ updates. The timing is currently a bit off.
 * ...
 
 #### 15. TLC, Garbage Collection and Handling Docker Upgrades
+* cleaning up old unused containers & images
+* vfs volumes
 
 ### Concluding Remarks and Discussion (4:40pm)
 * Immutable Infrastructure and 'Phoenix' Servers
