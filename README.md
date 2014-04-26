@@ -72,6 +72,7 @@ updates. The timing is currently a bit off.
 #### 2. Core Concepts and Hello World (20min)
 * containerization is an old concept, Linux late to the game
 * kernel namespaces & cgroups
+  * quick demonstration of manually created network namespace
 * lxc
 * docker containers, images & image layers
 * why we care
@@ -191,3 +192,4 @@ updates. The timing is currently a bit off.
 
 ### Concluding Remarks and Discussion (4:40pm)
 * Immutable Infrastructure and 'Phoenix' Servers
+* Is it ready for production use?
