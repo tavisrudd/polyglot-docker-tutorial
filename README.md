@@ -200,3 +200,17 @@ updates. The timing is currently a bit off.
 ### Concluding Remarks and Discussion (4:40pm)
 * Immutable Infrastructure and 'Phoenix' Servers
 * Is it ready for production use?
+
+### Interesting Docker Related Tools and Projects
+* Platform / PaaS like
+  * https://flynn.io/
+  * https://github.com/progrium/dokku
+  * https://github.com/opdemand/deis
+  * http://solum.io/ via openstack https://wiki.openstack.org/wiki/Docker
+  * http://www.projectatomic.io/
+* Orchestration
+  * coreos.com
+  * http://orchardup.github.io/fig/
+* CI / Testing
+  * https://github.com/drone/drone
+  * http://blockade.readthedocs.org
