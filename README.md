@@ -208,8 +208,9 @@ updates. The timing is currently a bit off.
   * https://github.com/opdemand/deis
   * http://solum.io/ via openstack https://wiki.openstack.org/wiki/Docker
   * http://www.projectatomic.io/
-* Orchestration
+* Host OS Integration / Orchestration, etc.
   * coreos.com
+  * https://github.com/boot2docker/boot2docker
   * http://orchardup.github.io/fig/
 * CI / Testing
   * https://github.com/drone/drone
