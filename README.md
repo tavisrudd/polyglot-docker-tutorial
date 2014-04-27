@@ -108,6 +108,8 @@ updates. The timing is currently a bit off.
 * using the api integrated into ansible & salt:
  * http://docs.ansible.com/docker_module.html
  * http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerio.html
+   See http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
+   for a great example of it in use.
 
 #### Interlude
 * http://12factor.net/
@@ -197,7 +199,7 @@ updates. The timing is currently a bit off.
 * cleaning up old unused containers & images
 * vfs volumes
 
-### Concluding Remarks and Discussion (4:40pm)
+#### Concluding Remarks and Discussion (4:40pm)
 * Immutable Infrastructure and 'Phoenix' Servers
 * Is it ready for production use?
 
@@ -215,3 +217,6 @@ updates. The timing is currently a bit off.
 * CI / Testing
   * https://github.com/drone/drone
   * http://blockade.readthedocs.org
+
+### Articles about Docker in Use
+* http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
