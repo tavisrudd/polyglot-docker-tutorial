@@ -66,6 +66,7 @@ updates. The timing is currently a bit off.
 
 #### 1. Introductions, Overview and Setup (8am, 15min)
 * validate ssh keypairs / IAM accounts
+  (distributed in the week leading up to course)
 * name badges
 * 30sec round the room intros
 
@@ -146,10 +147,16 @@ updates. The timing is currently a bit off.
 #### 9. Service Discovery & Ambassador Pattern (30min)
 * simple inter-container links and problems with this approach
 * more sophisticated and reliable approaches
+  * good overview http://jasonwilder.com/blog/2014/02/04/service-discovery-in-the-cloud/
   * DNS with skydock
   * mention ZK
   * etcd
   * consul.io
+* haproxy combined with other options
+  * a la Airbnb's SmartStack
+* examples of the ambassador pattern
+  * http://www.centurylinklabs.com/deploying-multi-server-docker-apps-with-ambassadors/
+  * http://www.centurylinklabs.com/linking-docker-containers-with-a-serf-ambassador/
 
 #### 10. Monitoring, Logging and Error Detection (30min)
 * logging via stdout
