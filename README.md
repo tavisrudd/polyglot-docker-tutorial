@@ -178,8 +178,15 @@ updates. The timing is currently a bit off.
 * resources for learning more about advanced linux networking
 
 #### 12. Docker on EC2
+* economics
 * distro requirements and a few amis ready to go
+  http://docs.docker.io/installation/amazon/
 * bootstrapping a docker host via boto
+* higher level tools to abstract away the details
+  * elastic beanstalk http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_console.html
+  * https://github.com/progrium/dokku
+  * https://github.com/opdemand/deis
+  * https://flynn.io/
 
 #### 13. Application Lifecycle 
 * options for handling of releases and configuration changes
