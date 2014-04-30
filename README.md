@@ -55,6 +55,14 @@ additional software is required.
 * Programming skill level?
 * Level of sysadmin / 'devops' experience?
 * Used lxc or Docker before?
+* What other virtualization systems and tooling have you used?
+  * vmware?
+  * xen (directly, not via ec2)?
+  * kvm?
+  * openvz or similar?
+  * libvirt combined with any of the above?
+  * vagrant?
+  * Solaris Zones or FreeBSD jails? 
 * Any experience with configuration management tools?
 * What do you hope to get out of the class? Any particular requests?
 * How do you plan on using Docker after the class?
@@ -105,6 +113,7 @@ updates. The timing is currently a bit off.
 * local via unix domain socket
 * remote http auth
 * differences between equivalent cli commands
+  * some commands & arguments are subtly different 
 * using the api integrated into ansible & salt:
  * http://docs.ansible.com/docker_module.html
  * http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerio.html
@@ -132,6 +141,7 @@ updates. The timing is currently a bit off.
 * using a private registry
 * host bind mounts of volumes
 * -volumes-from for data volume sharing
+* management of application data (e.g. postgresql data/)
 * using btrfs for snapshots of data volumes
 * current limitations of volume management in docker
   * manual garbage collection needed
