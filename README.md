@@ -83,9 +83,6 @@ updates. The timing is currently a bit off.
   * attach
   * diff, cp, commit
   * rm
-* resource limits
-  * cpu -c --cpu-shares
-  * memory -m --memory
 * using command outputs and exit codes for scripting in bash
 * image related 
   * images
@@ -164,8 +161,11 @@ updates. The timing is currently a bit off.
 * logging via stdout
 * logging via syslog or logstash to a log service container
 * docker events api
+* linux cgroup stats via /proc
+  http://blog.docker.io/2013/10/gathering-lxc-docker-containers-metrics/
+* monitoring container disk space usage
 * https://github.com/samalba/docker-cache
-* with sensu
+* host / container / app monitoring with sensu
 
 #### Interlude
 * Security & multi-tenant: caveat emptor
@@ -194,6 +194,7 @@ updates. The timing is currently a bit off.
 * rollback option via layers/tags
 
 #### 14. Sample Use Cases 
+* Docker buildfiles / containers as the unit of composition
 * Automated Test Runs via Jenkins (15min)
 * Managing OpenVPN (10min)
 * Running Postgresql and Other DBs (15min)
@@ -202,7 +203,21 @@ updates. The timing is currently a bit off.
 * mention of https://github.com/mesosphere/mesos-docker
 * ...
 
-#### 15. TLC, Garbage Collection and Handling Docker Upgrades
+#### 15. Resource Limits
+* via docker run options
+  * cpu -c --cpu-shares
+  * memory -m --memory
+* using cgroups
+  * disk IO
+  * network bandwith with tc
+  * reading material
+  http://www.oracle.com/technetwork/articles/servers-storage-admin/resource-controllers-linux-1506602.html
+  https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Resource_Management_Guide/ch-Subsystems_and_Tunable_Parameters.html
+  http://fritshoogland.wordpress.com/2012/12/15/throttling-io-with-linux/
+* external enforced limits
+  * disk space quotas
+
+#### 16. TLC, Garbage Collection and Handling Docker Upgrades
 * cleaning up old unused containers & images
 * vfs volumes
 
