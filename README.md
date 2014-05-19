@@ -78,11 +78,14 @@ updates. The timing is currently a bit off.
 
 #### 3. Command Line Interface and Bash Scripting (30min)
 * container related commands
-  * run, stop, start, restart, kill, wait
+  * run, stop/kill, start, restart, wait
   * ps, inspect, top, logs, port
   * attach
   * diff, cp, commit
   * rm
+* resource limits
+  * cpu -c --cpu-shares
+  * memory -m --memory
 * using command outputs and exit codes for scripting in bash
 * image related 
   * images
@@ -138,6 +141,7 @@ updates. The timing is currently a bit off.
 * network bridging
 * intercontainer networking 
   via -icc or custom bridges and lxc network options
+* host networking in docker 0.11
 * trouble-shooting
 
 #### Lunch (12 - 1pm)
@@ -149,7 +153,7 @@ updates. The timing is currently a bit off.
   * DNS with skydock
   * mention ZK
   * etcd
-  * consul.io
+  * *consul.io*
 * haproxy combined with other options
   * a la Airbnb's SmartStack
 * examples of the ambassador pattern
