@@ -51,21 +51,7 @@ additional software is required.
   Solomon Hykes.
 
 ### Pre-Workshop Questionnaire
-* Where do you work and what on?
-* Programming skill level?
-* Level of sysadmin / 'devops' experience?
-* Used lxc or Docker before?
-* What other virtualization systems and tooling have you used?
-  * vmware?
-  * xen (directly, not via ec2)?
-  * kvm?
-  * openvz or similar?
-  * libvirt combined with any of the above?
-  * vagrant?
-  * Solaris Zones or FreeBSD jails? 
-* Any experience with configuration management tools?
-* What do you hope to get out of the class? Any particular requests?
-* How do you plan on using Docker after the class?
+https://docs.google.com/forms/d/1gaqJcHFy30RNTewF7v3WLZS_xuvK9t8WtPeiAAIFLVc/viewform
 
 ### Syllabus
 
