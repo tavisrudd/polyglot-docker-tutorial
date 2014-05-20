@@ -110,7 +110,8 @@ updates. The timing is currently a bit off.
 * http://12factor.net/
 
 #### 5. Build files (30min)
-* Build files basics 
+* Build files basics
+* docker build (and options)
 * vs other approaches for creating images (tarball imports, etc.)
 * integration with config management tools
 * application packaging and configuration
@@ -138,9 +139,12 @@ updates. The timing is currently a bit off.
 * network bridging
 * intercontainer networking 
   via -icc or custom bridges and lxc network options
+* which base images should you use?
+* vs http://www.packer.io/docs/builders/docker.html
 * host networking in docker 0.11
 * trouble-shooting
 
+  counter args: http://phusion.github.io/baseimage-docker/
 #### Lunch (12 - 1pm)
 
 #### 9. Service Discovery & Ambassador Pattern (30min)
@@ -244,3 +248,5 @@ updates. The timing is currently a bit off.
 
 ### Articles about Docker in Use
 * http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
+* Note on Security 
+  http://www.slideshare.net/jpetazzo/linux-containers-lxc-docker-and-security
