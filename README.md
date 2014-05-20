@@ -241,12 +241,24 @@ updates. The timing is currently a bit off.
 * Host OS Integration / Orchestration, etc.
   * coreos.com
   * https://github.com/boot2docker/boot2docker
-  * http://orchardup.github.io/fig/
+  * http://orchardup.github.io/fig/ (focused on dev envs)
+  * https://github.com/signalfuse/maestro-ng
 * CI / Testing
   * https://github.com/drone/drone
   * http://blockade.readthedocs.org
+* -icc=false vs true with iptables -Ln
+  same with links
+  see diagrams in http://www.slideshare.net/hansode/hack-for-dockers-network
 
 ### Articles about Docker in Use
+  http://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/
+  https://gist.github.com/noteed/8656989
+* simpler gre tunnels
+  http://tier.cs.berkeley.edu/drupal/howto/ip-tunnel-using-gre-on-linux
+  http://tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.gre.html
+  be aware of mtu size issue http://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/13725-56.html
+* docker inside of ec2 VPC
+  http://serverfault.com/questions/568736/expose-docker-containers-to-vpc-network
 * http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
 * Note on Security 
   http://www.slideshare.net/jpetazzo/linux-containers-lxc-docker-and-security
