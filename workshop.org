@@ -4,8 +4,8 @@
   :ADDED:    [2014-05-21 Wed 19:50]
   :END:
 - complete this form https://docs.google.com/forms/d/1gaqJcHFy30RNTewF7v3WLZS_xuvK9t8WtPeiAAIFLVc/viewform
-- https://docker-in-depth.slack.com/messages/general/
-- watch https://www.youtube.com/watch?v=LNAzzHS1Rho
+- join https://docker-in-depth.slack.com/ (I've sent you all invites)
+- watch https://www.youtube.com/watch?v=LNAzzHS1Rho before Friday
 - optionally watch https://www.youtube.com/watch?v=Q5POuMHxW-0
 * Learning Goals
   :PROPERTIES:
@@ -44,6 +44,11 @@
    :PROPERTIES:
    :ID:       44acf047-8e14-4d4c-a0a3-444e09fda7f4
    :ADDED:    [2014-05-21 Wed 20:34]
+   :END:
+** understand its limitations and current gotchas
+   :PROPERTIES:
+   :ID:       d8b26f63-f2c7-473e-8994-2483eb658f0b
+   :ADDED:    [2014-05-21 Wed 21:09]
    :END:
 * Morning 8-12
   :PROPERTIES:
@@ -111,6 +116,18 @@ http://www.slideshare.net/BodenRussell/kvm-and-docker-lxc-benchmarking-with-open
      :ID:       d1e2a08c-47c0-4f28-9215-352322ca3d2e
      :ADDED:    [2014-05-21 Wed 19:48]
      :END:
+
+curl -s https://get.docker.io/ubuntu/ | sh
+apt-get install linux-image-extra-`uname -r`
+cat /proc/filesystems | grep aufs
+
+# /etc/default/grub
+# GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+update-grub && reboot
+
+
+vs explicit manual install from packages (lxc-docker, not docker.io)
+
 ** Foundations (8:30 - 9:30)
    :PROPERTIES:
    :ID:       3a41393a-fea9-457a-bd8c-2cd63676d2bf
@@ -137,7 +154,7 @@ http://www.slideshare.net/BodenRussell/kvm-and-docker-lxc-benchmarking-with-open
 - running a container in the foreground
 - running it in the background and inspecting the logs
 - running bash inside to inspect the env, network and file system
-*** Exploring Linux kernel subsystems involved 
+*** Exploring Linux kernel subsystems involved in each hello world example 
     :PROPERTIES:
     :ID:       1b1e1863-0f90-4c20-a46e-d172003831c2
     :ADDED:    [2014-05-21 Wed 19:43]
@@ -199,12 +216,26 @@ ps -O cgroup
 ps -e -O cgroup
 cat /proc/PID/cgroup
 alias psc='ps xawf -eo pid,user,cgroup,args'
+
+
+apt-get install ruby ruby-dev libcap-dev
+gem install cap2
+ruby -e "require 'pp'; require 'cap2'; pp Cap2.process($PID).getcaps[:effective]"
 #+end_src
 ** Core Docker Concepts & Commands (9 - 10) 
    :PROPERTIES:
    :ID:       22778ccc-9d88-41bf-aa8b-b552d4b990bc
    :ADDED:    [2014-05-21 Wed 19:33]
    :END:
+*** the daemon process and its options
+    :PROPERTIES:
+    :ID:       c8cb5bcf-d467-405a-a979-2bd6a0ae5549
+    :ADDED:    [2014-05-21 Wed 21:38]
+    :END:
+- docker -h
+- exposing its API via -H 
+- running various storage backends on the same system
+- explore -s drivers and fs layout
 *** using command outputs and exit codes for scripting in bash
 *** containers
 - run, stop/kill, start, restart, wait
@@ -218,14 +249,20 @@ alias psc='ps xawf -eo pid,user,cgroup,args'
     :ADDED:    [2014-05-21 Wed 20:30]
     :END:
 - images
-- pull
 - import
 - tag
-- push
 - inspect
 - history
 - save/load
 - rmi
+*** registries
+    :PROPERTIES:
+    :ID:       19ddd91d-f023-48b1-a52d-ccf4198a56e2
+    :ADDED:    [2014-05-21 Wed 21:37]
+    :END:
+- push
+- pull
+- search
 *** http://docs.docker.io/use/workingwithrepository/
     :PROPERTIES:
     :ID:       ae573036-778f-4185-9a8c-59fb54b49eb8
@@ -236,6 +273,11 @@ alias psc='ps xawf -eo pid,user,cgroup,args'
    :ID:       675f96b2-1890-4f4e-9611-5fdcf8207f87
    :ADDED:    [2014-05-21 Wed 19:56]
    :END:
+*** mention REST api but use Python wrapper
+    :PROPERTIES:
+    :ID:       3e1ce1cc-ff39-411e-804c-c300c97b2dbf
+    :ADDED:    [2014-05-21 Wed 21:32]
+    :END:
 *** https://github.com/dotcloud/docker-py
     :PROPERTIES:
     :ID:       2ea9817a-368e-4185-aa24-b77a7ad3e896
@@ -296,6 +338,11 @@ alias psc='ps xawf -eo pid,user,cgroup,args'
 *** application packaging and configuration
 *** which base images should you use?
 *** vs http://www.packer.io/docs/builders/docker.html
+*** use exec http://www.tech-d.net/2014/01/27/docker-quicktip-2-exec-it/
+    :PROPERTIES:
+    :ID:       2cdcd5a7-a45b-498e-80b7-8dc87c0f609d
+    :ADDED:    [2014-05-21 Wed 21:34]
+    :END:
 ** Networking (11:20 - 12)
    :PROPERTIES:
    :ID:       a0e574fa-3f73-46ed-9ed9-9b1caeb6fb0f
@@ -386,6 +433,12 @@ ip netns exec $CID ss
     :ID:       d3cfd152-0a70-4f24-8e9d-d041ee82a2c9
     :ADDED:    [2014-05-21 Wed 20:42]
     :END:
+*** integration with host system init
+    :PROPERTIES:
+    :ID:       eba6af72-3d65-409c-ac43-ef0613fc790a
+    :ADDED:    [2014-05-21 Wed 21:10]
+    :END:
+http://docs.docker.io/use/host_integration/
 ** Docker for Dev / Testing / CI
    :PROPERTIES:
    :ID:       430030e3-d06a-4ec1-a8ea-e6f89dca6452
@@ -405,6 +458,7 @@ ip netns exec $CID ss
    :END:
 - vs chroot
 - vs lxc
+- vs packer
 ** Docker for Production
    :PROPERTIES:
    :ID:       50851891-f4fc-4d70-bc11-143d2503aaeb
