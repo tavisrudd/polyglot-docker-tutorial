@@ -1,0 +1,563 @@
+* Student Preparation
+  :PROPERTIES:
+  :ID:       4b0484e0-0dd7-4a7c-8ed7-b64939d790a7
+  :ADDED:    [2014-05-21 Wed 19:50]
+  :END:
+- complete this form https://docs.google.com/forms/d/1gaqJcHFy30RNTewF7v3WLZS_xuvK9t8WtPeiAAIFLVc/viewform
+- https://docker-in-depth.slack.com/messages/general/
+- watch https://www.youtube.com/watch?v=LNAzzHS1Rho
+- optionally watch https://www.youtube.com/watch?v=Q5POuMHxW-0
+* Learning Goals
+  :PROPERTIES:
+  :ID:       995a83e1-455a-4787-9f99-cb73fc2bb60d
+  :ADDED:    [2014-05-21 Wed 19:27]
+  :END:
+** understand how docker works at a deep level
+   :PROPERTIES:
+   :ID:       790b8e15-2382-4bb4-92e3-ec21dc3eb26d
+   :ADDED:    [2014-05-21 Wed 19:28]
+   :END:
+- linux kernel containerization mechanisms
+  - cgroups
+  - namespaces
+  - capabilities
+- Docker's image layering & the various subsystems implementing it
+- container life-cyle
+- what build-files are doing
+- Docker's networking / routing 
+** understand docker.io's 'philosophy' about Docker vs other approaches 
+   :PROPERTIES:
+   :ID:       74a2db4b-2bff-4618-b134-c58f778bae3d
+   :ADDED:    [2014-05-21 Wed 19:28]
+   :END:
+** understand how it compares to other options
+   :PROPERTIES:
+   :ID:       abb3e73c-735b-48b6-8777-ce68bfba81f5
+   :ADDED:    [2014-05-21 Wed 19:31]
+   :END:
+** build some muscle memory for core commands
+   :PROPERTIES:
+   :ID:       58c5e9b0-364a-4dac-94cb-1a165acdaa4c
+   :ADDED:    [2014-05-21 Wed 20:34]
+   :END:
+** be able to notice, diagnose and fix error conditions
+   :PROPERTIES:
+   :ID:       44acf047-8e14-4d4c-a0a3-444e09fda7f4
+   :ADDED:    [2014-05-21 Wed 20:34]
+   :END:
+* Morning 8-12
+  :PROPERTIES:
+  :ID:       8613f2b0-2e1e-44ab-abb7-9443be004e90
+  :ADDED:    [2014-05-21 Wed 19:27]
+  :END:
+** Setup & Intro & Overview (8 - 8:30)
+   :PROPERTIES:
+   :ID:       56c90cbd-9bb4-4ca5-972c-72a78593e47e
+   :ADDED:    [2014-05-21 Wed 19:27]
+   :END:
+*** name badges
+*** form 3 person teams & sit together
+    :PROPERTIES:
+    :ID:       530f7b25-19f7-461c-8a4a-c9849d90ce04
+    :ADDED:    [2014-05-21 Wed 19:44]
+    :END:
+**** create a team channel on https://docker-in-depth.slack.com
+     :PROPERTIES:
+     :ID:       e62c974b-1865-4d38-a524-f7a159f9ab26
+     :ADDED:    [2014-05-21 Wed 19:54]
+     :END:
+*** validate ssh keypairs / IAM accounts
+    (distributed in the week leading up to course)
+*** 30sec round the room intros
+*** Why do we care about Docker?
+    :PROPERTIES:
+    :ID:       60185fa2-e2f6-4aa0-b4f9-76ec8a2639c8
+    :ADDED:    [2014-05-21 Wed 20:40]
+    :END:
+http://www.slideshare.net/BodenRussell/kvm-and-docker-lxc-benchmarking-with-openstack?ref=http://bodenr.blogspot.ca/2014/05/kvm-and-docker-lxc-benchmarking-with.html?utm_source=Docker+News&utm_campaign=7031cca54b-Docker_0_5_0_7_18_2013&utm_medium=email&utm_term=0_c0995b6e8f-7031cca54b-235743341
+
+*** Overview
+    :PROPERTIES:
+    :ID:       be59660d-6c27-4908-ae6d-336c3b7729e1
+    :ADDED:    [2014-05-21 Wed 19:49]
+    :END:
+*** Installation
+    :PROPERTIES:
+    :ID:       bf1605f9-9681-4be5-bb75-9bbe10bb3986
+    :ADDED:    [2014-05-21 Wed 19:45]
+    :END:
+**** Base Ubuntu 14.04 Server LTS
+     :PROPERTIES:
+     :ID:       fde9c7d4-638a-45c9-b343-fd83c55cf82f
+     :ADDED:    [2014-05-21 Wed 19:48]
+     :END:
+**** btrfs
+     :PROPERTIES:
+     :ID:       55deda8e-5b98-48fc-adfb-840ff018ab27
+     :ADDED:    [2014-05-21 Wed 19:48]
+     :END:
+**** utils we'll use
+     :PROPERTIES:
+     :ID:       632c539e-d561-4ed9-84b7-f91cf961eada
+     :ADDED:    [2014-05-21 Wed 19:48]
+     :END:
+**** LXC
+     :PROPERTIES:
+     :ID:       53f606cb-c494-4bda-9021-25f0756ed61f
+     :ADDED:    [2014-05-21 Wed 19:48]
+     :END:
+**** Docker
+     :PROPERTIES:
+     :ID:       d1e2a08c-47c0-4f28-9215-352322ca3d2e
+     :ADDED:    [2014-05-21 Wed 19:48]
+     :END:
+** Foundations (8:30 - 9:30)
+   :PROPERTIES:
+   :ID:       3a41393a-fea9-457a-bd8c-2cd63676d2bf
+   :ADDED:    [2014-05-21 Wed 19:42]
+   :END:
+*** History elsewhere
+    :PROPERTIES:
+    :ID:       ddbbf1b3-775b-44f2-9c83-e100afb52b28
+    :ADDED:    [2014-05-21 Wed 21:03]
+    :END:
+- containerization is an old concept, Linux late to the game
+
+*** LXC
+    :PROPERTIES:
+    :ID:       c3ccfe02-b5bd-499c-964e-3c1315fb7378
+    :ADDED:    [2014-05-21 Wed 21:03]
+    :END:
+*** lxc hello world
+    :PROPERTIES:
+    :ID:       e8da9436-ead6-4f41-a0d1-b9ba13ec4bf0
+    :ADDED:    [2014-05-21 Wed 21:05]
+    :END:
+*** docker hello world
+- running a container in the foreground
+- running it in the background and inspecting the logs
+- running bash inside to inspect the env, network and file system
+*** Exploring Linux kernel subsystems involved 
+    :PROPERTIES:
+    :ID:       1b1e1863-0f90-4c20-a46e-d172003831c2
+    :ADDED:    [2014-05-21 Wed 19:43]
+    :END:
+more on cgroups http://www.slideshare.net/azilian/lsa2-02-cgroups
+Docker only uses and exposes a subset of what is possible
+
+#+begin_src sh
+lxc-create -n test -t busybox
+lxc-start -d -n test
+lxc-info -n test
+lscgroup | grep lxc
+/var/lib/lxc/test/config
+ls /var/lib/lxc/test/ # tree
+lxc-attach -n test
+
+PID=$(lxc-info -p -n test | awk '{print $2}')
+CGROUPS=$(lscgroup | awk -F: '/test/ {print $1}' | paste -sd,)
+inside() {
+  cgexec -g "$CGROUPS:/lxc/test" -- \
+    nsenter --target $PID --mount --uts --ipc --net --pid -- "$@"
+  # hasn't dropped capabilities
+  # can be used to do things inside that are otherwise not allowed by lxc or docker
+  # such as additional mount points, routing changes etc.
+}
+# cat /proc/self/cgroup
+
+#  http://jpetazzo.github.io/2014/03/23/lxc-attach-nsinit-nsenter-docker-0-9/
+
+    # no impact on cgroup of process
+    ls -al /proc/$PID/ns/
+
+# other uses http://uwsgi-docs.readthedocs.org/en/latest/Namespaces.html
+# exploring cgroups
+  tree -fd /sys/fs/cgroup/
+  tree -fd /sys/fs/cgroup/ | grep docker
+  tree -fd /sys/fs/cgroup/ | grep lxc
+
+  libcgroup / libcgroup-tools (ubuntu: cgroup-bin)
+  lssubsys
+  lscgroup
+  cgget
+
+  # to get list of cgroups docker is using
+  CGROUPS=$(lscgroup | awk -F: '/docker/ {print $1}' | paste -sd,)
+  # or awk -F: ORS=',' '/docker/ {print $1}' 
+  # but this leaves a trailiing comma
+  cgexec -g "$CGROUPS:/docker/$CID"
+
+  mkdir -p /sys/fs/cgroup/net_prio/docker/$CID
+cgexec -g 'cpuset,net_prio,freezer,cpuacct,blkio,memory,cpu,devices:docker/a5f7d20ebfd8054e8097b2296724a89888c4e87dfc46d92b17a0ef50c3eff62c' cat /proc/self/cgroup
+  
+  apt-get install python-dev
+  pip install cgroup-utils
+  https://pypi.python.org/pypi/cgroup-utils/0.5
+
+# working with procs / cgroups 
+ps -O cgroup
+ps -e -O cgroup
+cat /proc/PID/cgroup
+alias psc='ps xawf -eo pid,user,cgroup,args'
+#+end_src
+** Core Docker Concepts & Commands (9 - 10) 
+   :PROPERTIES:
+   :ID:       22778ccc-9d88-41bf-aa8b-b552d4b990bc
+   :ADDED:    [2014-05-21 Wed 19:33]
+   :END:
+*** using command outputs and exit codes for scripting in bash
+*** containers
+- run, stop/kill, start, restart, wait
+- ps, inspect, top, logs, port
+- attach
+- diff, cp, commit
+- rm
+*** images 
+    :PROPERTIES:
+    :ID:       749abf9f-8564-4b8d-8723-094460abe62d
+    :ADDED:    [2014-05-21 Wed 20:30]
+    :END:
+- images
+- pull
+- import
+- tag
+- push
+- inspect
+- history
+- save/load
+- rmi
+*** http://docs.docker.io/use/workingwithrepository/
+    :PROPERTIES:
+    :ID:       ae573036-778f-4185-9a8c-59fb54b49eb8
+    :ADDED:    [2014-05-21 Wed 20:31]
+    :END:
+** The API (10 - 10:20) 
+   :PROPERTIES:
+   :ID:       675f96b2-1890-4f4e-9611-5fdcf8207f87
+   :ADDED:    [2014-05-21 Wed 19:56]
+   :END:
+*** https://github.com/dotcloud/docker-py
+    :PROPERTIES:
+    :ID:       2ea9817a-368e-4185-aa24-b77a7ad3e896
+    :ADDED:    [2014-05-21 Wed 20:29]
+    :END:
+*** local via unix domain socket 
+- shareable via mount binds
+*** remote http auth
+*** differences between equivalent cli commands
+    * some commands & arguments are subtly different 
+*** using the api integrated into ansible & salt:
+   * http://docs.ansible.com/docker_module.html
+   * http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerio.html
+     See http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
+     for a great example of it in use.
+** Interlude: Security (10:20 - 10:30)
+   :PROPERTIES:
+   :ID:       0960adc9-f483-4ebd-b43d-dbad6a2fdc46
+   :ADDED:    [2014-05-21 Wed 20:26]
+   :END:
+*** Security & multi-tenant: caveat emptor
+*** point to selinux / apparmour, but not covered
+*** http://www.slideshare.net/jpetazzo/linux-containers-lxc-docker-and-security
+    :PROPERTIES:
+    :ID:       5b582877-19f7-4274-93c6-f2288474b29a
+    :ADDED:    [2014-05-21 Wed 20:27]
+    :END:
+** Image Management & Volumes (10:30 - 11)
+   :PROPERTIES:
+   :ID:       073630ca-167f-4b37-8778-3ce23aab2b58
+   :ADDED:    [2014-05-21 Wed 19:57]
+   :END:
+*** public index
+*** trusted builds
+*** using a private registry
+*** host bind mounts of volumes
+*** -volumes-from for data volume sharing & backup
+    http://docs.docker.io/use/working_with_volumes/
+*** management of application data (e.g. postgresql data/)
+*** using btrfs for snapshots of data volumes
+*** TLC, Garbage Collection and Handling Docker Upgrades
+*** cleaning up old unused containers & images
+*** vfs volumes
+*** Running Postgresql and Other DBs
+    :PROPERTIES:
+    :ID:       ca0ed577-3aee-4aae-bd7a-4fbd0f4bd710
+    :ADDED:    [2014-05-21 Wed 20:59]
+    :END:
+** Build files (11 - 11:20)
+   :PROPERTIES:
+   :ID:       823b78ff-37e7-45c3-a0ac-47cef34e8732
+   :ADDED:    [2014-05-21 Wed 20:35]
+   :END:
+*** Build files basics
+*** docker build (and options)
+*** vs other approaches for creating images (tarball imports, etc.)
+*** integration with config management tools
+*** application packaging and configuration
+*** which base images should you use?
+*** vs http://www.packer.io/docs/builders/docker.html
+** Networking (11:20 - 12)
+   :PROPERTIES:
+   :ID:       a0e574fa-3f73-46ed-9ed9-9b1caeb6fb0f
+   :ADDED:    [2014-05-21 Wed 20:20]
+   :END:
+*** quick demonstration of manually created network namespace
+    :PROPERTIES:
+    :ID:       87b2c49d-22d4-4e72-9943-5209ef36af2f
+    :ADDED:    [2014-05-21 Wed 21:04]
+    :END:
+*** exposing ports and binding to host interfaces
+*** dns options
+*** network bridging
+*** intercontainer networking 
+   via -icc or custom bridges and lxc network options
+*** host networking in docker 0.11
+*** sharing unix domain sockets & fifos between containers
+*** trouble-shooting
+*** -icc=false vs true with iptables -Ln
+    same with links
+    see diagrams in http://www.slideshare.net/hansode/hack-for-dockers-network
+*** configuring alternate local network topologies via pipework
+*** software defined networking via Open vSwitch
+    http://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/
+    https://gist.github.com/noteed/8656989
+*** simpler gre tunnels
+    http://tier.cs.berkeley.edu/drupal/howto/ip-tunnel-using-gre-on-linux
+    http://tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.gre.html
+    be aware of mtu size issue http://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/13725-56.html
+*** docker inside of ec2 VPC
+    http://serverfault.com/questions/568736/expose-docker-containers-to-vpc-network
+*** overhead of various approaches
+*** resources for learning more about advanced linux networking
+
+#+begin_src txt
+  tcpdump -i docker0
+
+CID=short sha
+TASKS=/sys/fs/cgroup/devices/docker/$CID*/tasks
+PID=$(head -n 1 $TASKS) # use --format instead
+
+mkdir -p /var/run/netns
+ln -sf /proc/$PID/ns/net /var/run/netns/$CID
+ip netns exec $CID ifconfig
+ip netns exec $CID ip {link,addr,route} ...
+ip netns exec $CID netstat -i
+ip netns exec $CID tcpdump ...
+ip netns exec $CID ss 
+#+end_src
+*** Managing OpenVPN
+    :PROPERTIES:
+    :ID:       f512858b-62e8-44af-ab08-d79bdd132503
+    :ADDED:    [2014-05-21 Wed 21:01]
+    :END:
+* Afternoon 1-5
+  :PROPERTIES:
+  :ID:       94fc851e-8431-4843-952a-72a8e38dc717
+  :ADDED:    [2014-05-21 Wed 19:27]
+  :END:
+** Monitoring, Logging and Error Detection (1 - 1:20)
+   :PROPERTIES:
+   :ID:       d80c06cd-8e5f-46d7-88a7-dd9f02197620
+   :ADDED:    [2014-05-21 Wed 19:28]
+   :END:
+*** TODO copy links from my email
+*** logging via stdout
+*** logging via syslog or logstash to a log service container
+*** logging via bind mount of /dev/log /dev/kmsg
+    similar to lxc.kmsg
+*** docker events api
+*** linux cgroup stats via /proc
+    http://blog.docker.io/2013/10/gathering-lxc-docker-containers-metrics/
+*** monitoring container disk space usage
+*** https://github.com/samalba/docker-cache
+*** host / container / app monitoring with sensu
+** Processes & Supervision (1:20 - 1:40) 
+   :PROPERTIES:
+   :ID:       94f50503-70aa-41a6-8c20-bfe184b282d0
+   :ADDED:    [2014-05-21 Wed 20:37]
+   :END:
+*** Docker's single process philosophy
+    counter args: http://phusion.github.io/baseimage-docker/
+*** versus more traditional vm-like init + procs
+*** tradeoffs and use cases for each
+*** process supervision within and between containers
+*** my hack for attaching privileged processes 
+    :PROPERTIES:
+    :ID:       d3cfd152-0a70-4f24-8e9d-d041ee82a2c9
+    :ADDED:    [2014-05-21 Wed 20:42]
+    :END:
+** Docker for Dev / Testing / CI
+   :PROPERTIES:
+   :ID:       430030e3-d06a-4ec1-a8ea-e6f89dca6452
+   :ADDED:    [2014-05-21 Wed 20:43]
+   :END:
+*** Jenkins integration
+    :PROPERTIES:
+    :ID:       f9b03753-b69f-409f-a494-d602e9303955
+    :ADDED:    [2014-05-21 Wed 20:58]
+    :END:
+*** Blockade http://blockade.readthedocs.org for Testing Network Failures
+*** https://github.com/drone/drone
+** Docker for Image / Artifact Packing
+   :PROPERTIES:
+   :ID:       a9a49e9e-f1d4-4af6-859e-993fe7af2e42
+   :ADDED:    [2014-05-21 Wed 20:52]
+   :END:
+- vs chroot
+- vs lxc
+** Docker for Production
+   :PROPERTIES:
+   :ID:       50851891-f4fc-4d70-bc11-143d2503aaeb
+   :ADDED:    [2014-05-21 Wed 20:43]
+   :END:
+*** http://12factor.net/
+*** Docker buildfiles / containers as the unit of composition
+*** vs other units of composition
+    :PROPERTIES:
+    :ID:       bf3434e0-0db4-4988-bb4c-f97f747ef147
+    :ADDED:    [2014-05-21 Wed 20:59]
+    :END:
+*** Service Discovery & Inter-container Relationships
+    :PROPERTIES:
+    :ID:       ee006781-4b90-452c-93b5-fe3a519a0e2e
+    :ADDED:    [2014-05-21 Wed 20:44]
+    :END:
+**** simple inter-container links and problems with this approach
+**** more sophisticated and reliable approaches
+- good overview http://jasonwilder.com/blog/2014/02/04/service-discovery-in-the-cloud/
+- DNS with skydock
+- mention ZK
+- etcd
+- *consul.io*
+**** haproxy combined with other options
+- a la Airbnb's SmartStack
+**** Ambassador pattern
+- http://www.centurylinklabs.com/deploying-multi-server-docker-apps-with-ambassadors/
+- http://www.centurylinklabs.com/linking-docker-containers-with-a-serf-ambassador/
+
+*** Application Lifecycle
+    :PROPERTIES:
+    :ID:       760ee26a-c1a1-4246-8329-af5d36c6f1e7
+    :ADDED:    [2014-05-21 Wed 20:44]
+    :END:
+**** options for handling of releases and configuration changes
+**** atomic changes
+**** rollback option via layers/tags
+**** backup of data in volumes
+     :PROPERTIES:
+     :ID:       8a2a9830-3506-4feb-88cc-fe123d7c89e0
+     :ADDED:    [2014-05-21 Wed 20:47]
+     :END:
+*** Resource limits
+    :PROPERTIES:
+    :ID:       d10c7d85-5781-4d31-a688-3c28dfe47a80
+    :ADDED:    [2014-05-21 Wed 20:48]
+    :END:
+**** via docker run options
+     * cpu -c --cpu-shares
+     * memory -m --memory
+**** using cgroups
+     * disk IO
+     * network bandwith with tc
+     * reading material
+     http://www.oracle.com/technetwork/articles/servers-storage-admin/resource-controllers-linux-1506602.html
+     https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Resource_Management_Guide/ch-Subsystems_and_Tunable_Parameters.html
+     http://fritshoogland.wordpress.com/2012/12/15/throttling-io-with-linux/
+**** external enforced limits
+     * disk space quotas
+*** Cloud economics & performance
+    :PROPERTIES:
+    :ID:       1ae0e1f3-2ba6-474c-98e6-cc5e3156eb0d
+    :ADDED:    [2014-05-21 Wed 20:56]
+    :END:
+- better packing and utilization
+- remember it's still not native performance
+*** PaaS like tools for Docker
+    :PROPERTIES:
+    :ID:       db38f8b0-e12d-45a2-80cc-63f333ba24fc
+    :ADDED:    [2014-05-21 Wed 20:55]
+    :END:
+  - https://flynn.io/
+  - https://github.com/progrium/dokku
+  - https://github.com/opdemand/deis
+  - http://solum.io/ via openstack https://wiki.openstack.org/wiki/Docker
+  - http://www.projectatomic.io/
+**** Host OS Integration / Orchestration, etc.
+   - coreos.com
+   - https://github.com/boot2docker/boot2docker
+   - http://orchardup.github.io/fig/ (focused on dev envs)
+   - https://github.com/signalfuse/maestro-ng
+**** elastic beanstalk http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_console.html
+**** CoreOS and Cluster Deployment with Fleet
+     :PROPERTIES:
+     :ID:       0a415487-e6e1-4017-97b5-33a7bc5acc07
+     :ADDED:    [2014-05-21 Wed 20:57]
+     :END:
+**** https://github.com/progrium/dokku
+**** https://github.com/opdemand/deis
+**** https://flynn.io/
+**** with mesos https://github.com/mesosphere/mesos-docker
+     :PROPERTIES:
+     :ID:       d6dc52fb-b802-4b5c-8813-054b6d5b6827
+     :ADDED:    [2014-05-21 Wed 20:57]
+     :END:
+* Conclusion (4:30)
+  :PROPERTIES:
+  :ID:       72524b91-f395-472a-8c14-a9d182bfec8c
+  :ADDED:    [2014-05-21 Wed 19:37]
+  :END:
+** Review
+   :PROPERTIES:
+   :ID:       a179b70e-cc4a-4222-826e-e17feed4780f
+   :ADDED:    [2014-05-21 Wed 19:38]
+   :END:
+** Key Takeaway Points
+   :PROPERTIES:
+   :ID:       5bc1292e-9b6f-4ae7-882f-d971dfe8ae7a
+   :ADDED:    [2014-05-21 Wed 19:37]
+   :END:
+- too early to really know about 'best practices':
+  - think critically, measure, test, and monitor
+  - what is your unit of deployment
+- be wary of the less used backend drivers which haven't had much battle testing yet
+- pay attention to error reporting and handling. How does your
+  infrastructure handle the unhappy path.
+- keep an eye on the issues on github for bugs that may affect you
+- try to develop your apps & systems so you can deploy to docker OR
+  elsewhere. There is no need to lock yourself into docker-only
+  approaches.
+*** Immutable Infrastructure and 'Phoenix' Servers
+** Final Questions
+   :PROPERTIES:
+   :ID:       8dd527f5-9f7c-4a6b-9639-15aaa9ab81c9
+   :ADDED:    [2014-05-21 Wed 19:38]
+   :END:
+*** Is it ready for production use?
+*** Reminder re Security 
+* Resources
+  :PROPERTIES:
+  :ID:       d9298603-6b4e-4dc6-99a9-806edc079221
+  :ADDED:    [2014-05-21 Wed 19:28]
+  :END:
+** Interesting Docker Related Tools and Projects
+*** http://blog.bittorrent.com/2013/10/22/sync-hacks-deploy-bittorrent-sync-with-docker/
+
+** Interesting pull requests / issues to watch
+
+*** https://github.com/dotcloud/docker/pull/4202 
+'docker driver ...' command for driver backend commands such as resize-pool / resize
+
+*** https://github.com/dotcloud/docker/pull/4572 support for user namespaces
+
+** Articles about Docker in Use
+*** http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
+* Optional Discussions
+  :PROPERTIES:
+  :ID:       eb72f3de-18e9-4c98-b946-e84e4c928490
+  :ADDED:    [2014-05-21 Wed 20:54]
+  :END:
+* Food & Drinks Afterwards
+  :PROPERTIES:
+  :ID:       d20c15f1-0d4c-4685-98fb-287d0ee4fe95
+  :ADDED:    [2014-05-21 Wed 19:40]
+  :END:
