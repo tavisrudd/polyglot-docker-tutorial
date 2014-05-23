@@ -604,6 +604,7 @@ http://docs.docker.io/use/host_integration/
     :ID:       f9b03753-b69f-409f-a494-d602e9303955
     :ADDED:    [2014-05-21 Wed 20:58]
     :END:
+https://wiki.jenkins-ci.org/display/JENKINS/Docker+Plugin
 
 From the authors of Fig
 https://github.com/orchardup/docker-jenkins/blob/master/Dockerfile

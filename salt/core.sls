@@ -81,8 +81,6 @@ docker-io:
     pkg.installed:
       - name: lxc-docker
       - refresh: True
-    service.running:
-      - name: docker
  
 docker-python-dockerpy:
   pip.installed:

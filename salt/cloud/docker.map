@@ -1,0 +1,115 @@
+minion_ec2:
+  - j-martin:
+      minion:
+        grains:
+          student: Jean-Martin Archer  
+  - jeks313:
+      minion:
+        grains:
+          student: Christopher Hyde    
+  - preradio:
+      minion:
+        grains:
+          student: Jason Fowler        
+  - rsalmond:
+      minion:
+        grains:
+          student: Rob Salmond         
+  - jingweno:
+      minion:
+        grains:
+          student: Owen Ou             
+  - jdrivas:
+      minion:
+        grains:
+          student: David                
+  - ddossot:
+      minion:
+        grains:
+          student: David Dossot        
+  - simstre:
+      minion:
+        grains:
+          student: Chris Sim           
+  - rpbeier:
+      minion:
+        grains:
+          student: Richard Beier       
+  - kyoung:
+      minion:
+        grains:
+          student: Kyle Young          
+  - cheempz:
+      minion:
+        grains:
+          student: Lin Lin             
+  - pierrebeugnot:
+      minion:
+        grains:
+          student: Pierre Beugnot      
+  - mmercer-appneta:
+      minion:
+        grains:
+          student: Matt Mercer         
+  - willx0:
+      minion:
+        grains:
+          student: Will Law            
+  - nisanharamati:
+      minion:
+        grains:
+          student: Nisan Haramati      
+  - ppickfor:
+      minion:
+        grains:
+          student: Peter Pickford      
+  - cspicer:
+      minion:
+        grains:
+          student: Chris Spicer        
+  - briandorsey:
+      minion:
+        grains:
+          student: Brian Dosrsey        
+  - captainkrtek:
+      minion:
+        grains:
+          student: Steven Richards     
+  - jasonandres:
+      minion:
+        grains:
+          student: Jason Andres        
+  - markeijsermans:
+      minion:
+        grains:
+          student: Mark Eijsermans     
+  - grantdiener:
+      minion:
+        grains:
+          student: Grant Diener     
+  - lkysow:
+      minion:
+        grains:
+          student: Luke Kysow         
+  - kyledemeule:
+      minion:
+        grains:
+          student: Kyle Demeule     
+  - robbles:
+      minion:
+        grains:
+          student: Rob O'Dwyer       
+  - MightyMel:
+      minion:
+        grains:
+          student: Vincenzo Melandri 
+  - enathaniel:
+      minion:
+        grains:
+          student: Edwin Nathaniel     
+  - sshi100:
+      minion:
+        grains:
+          student: Steven Shi       
+
+# Barry            barry.steyn

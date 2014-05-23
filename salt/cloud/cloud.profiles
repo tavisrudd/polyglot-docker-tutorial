@@ -1,0 +1,19 @@
+base_ec2:
+  provider: aws
+  image: ami-50282d15
+  ssh_username: ubuntu
+  size: m1.small
+  script: python-bootstrap
+
+minion_ec2:
+  extends: base_ec2
+  minion:
+    master: docker-master.damnsimple.com
+    startup_states: highstate
+    grains:
+      live: True
+
+master_ec2:
+  extends: base_ec2
+  make_master: True
+

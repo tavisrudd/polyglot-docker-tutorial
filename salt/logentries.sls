@@ -23,11 +23,14 @@ logentries-registered:
         le register --name="{{grains.id}}" --account-key=883b7880-f3e8-4f98-82ae-f1430f8bb658
         le follow /var/log/lastlog
         le follow /var/log/auth.log
+        le follow /var/log/syslog
         le follow /var/log/kern.log
         le follow /var/log/salt/minion
         le follow /var/log/docker-containers.log
         le follow /var/log/upstart/docker.log
         le follow /var/log/upstart/salt-minion.log
+        le follow /root/screenlogs/screenlog.0
+        le follow /root/screenlogs/screenlog.1
         rm -f /tmp/logentries-kick
         touch /tmp/logentries-updated
     - unless: le whoami | grep -v required && [[ ! -e /tmp/logentries-kick ]]

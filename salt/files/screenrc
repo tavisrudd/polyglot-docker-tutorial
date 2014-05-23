@@ -26,7 +26,8 @@ bind b focus bottom
 caption always '%{= kw}%-w%{= KW}%n %t%{-}%+w %= %?%P%{.rw}P%:%?'
 
 # ------------------------------------------------------------------------------
-# Set some Copy Mode key bindings                                                                                                                                        # ------------------------------------------------------------------------------
+# Set some Copy Mode key bindings
+# ------------------------------------------------------------------------------
 
 # emacs keybindings for navigation in copy mode
 markkeys ^B=Y:^F=V:h=^B:l=^F:0=^A:$=^E
@@ -48,3 +49,8 @@ bindkey -m -k kN stuff V
 # C-space sets mark.
 markkeys ' '=^@
 
+# ------------------------------------------------------------------------------
+# logging
+# ------------------------------------------------------------------------------
+logdir /root/screenlogs/
+log on
