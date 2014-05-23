@@ -8,3 +8,4 @@ base:
     - docker-fs-variants
     - dockerimages
     - scripts
+    - logentries
