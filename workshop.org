@@ -70,7 +70,7 @@
    :ID:       56c90cbd-9bb4-4ca5-972c-72a78593e47e
    :ADDED:    [2014-05-21 Wed 19:27]
    :END:
-*** name badges
+*** name badges / github names on paper next to each computer
 *** form 3 person teams & sit together
     :PROPERTIES:
     :ID:       530f7b25-19f7-461c-8a4a-c9849d90ce04
@@ -81,8 +81,7 @@
      :ID:       e62c974b-1865-4d38-a524-f7a159f9ab26
      :ADDED:    [2014-05-21 Wed 19:54]
      :END:
-*** validate ssh keypairs / IAM accounts
-    (distributed in the week leading up to course)
+*** validate ssh keypairs against ec2 vms
 *** 30sec round the room intros
 *** Why do we care about Docker?
     :PROPERTIES:
@@ -98,11 +97,13 @@ Example use cases:
 - Production environments?
 - Supervisor systems inside of related set of docker container
 
-*** Overview
+*** Workshop Overview
     :PROPERTIES:
     :ID:       be59660d-6c27-4908-ae6d-336c3b7729e1
     :ADDED:    [2014-05-21 Wed 19:49]
     :END:
+- focused on hands-on learning through exercises and exploration
+- guided exploration rather than lectures and canned tutorials
 *** Installation
     :PROPERTIES:
     :ID:       bf1605f9-9681-4be5-bb75-9bbe10bb3986
