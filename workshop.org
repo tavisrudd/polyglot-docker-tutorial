@@ -35,7 +35,17 @@
    :ID:       abb3e73c-735b-48b6-8777-ce68bfba81f5
    :ADDED:    [2014-05-21 Wed 19:31]
    :END:
-** build some muscle memory for core commands
+** understand its limitations and current gotchas
+   :PROPERTIES:
+   :ID:       d8b26f63-f2c7-473e-8994-2483eb658f0b
+   :ADDED:    [2014-05-21 Wed 21:09]
+   :END:
+** understand the variety of ways it can be used
+   :PROPERTIES:
+   :ID:       14c8bcca-728b-49e4-9bc6-5fd84f0842f2
+   :ADDED:    [2014-05-22 Thu 13:02]
+   :END:
+** build some muscle memory for core commands & use cases
    :PROPERTIES:
    :ID:       58c5e9b0-364a-4dac-94cb-1a165acdaa4c
    :ADDED:    [2014-05-21 Wed 20:34]
@@ -45,10 +55,10 @@
    :ID:       44acf047-8e14-4d4c-a0a3-444e09fda7f4
    :ADDED:    [2014-05-21 Wed 20:34]
    :END:
-** understand its limitations and current gotchas
+** know where look for details on a variety of related subjects
    :PROPERTIES:
-   :ID:       d8b26f63-f2c7-473e-8994-2483eb658f0b
-   :ADDED:    [2014-05-21 Wed 21:09]
+   :ID:       48b5eea6-2739-4b5c-82c0-153db1637192
+   :ADDED:    [2014-05-22 Thu 13:03]
    :END:
 * Morning 8-12
   :PROPERTIES:
@@ -80,6 +90,13 @@
     :ADDED:    [2014-05-21 Wed 20:40]
     :END:
 http://www.slideshare.net/BodenRussell/kvm-and-docker-lxc-benchmarking-with-openstack?ref=http://bodenr.blogspot.ca/2014/05/kvm-and-docker-lxc-benchmarking-with.html?utm_source=Docker+News&utm_campaign=7031cca54b-Docker_0_5_0_7_18_2013&utm_medium=email&utm_term=0_c0995b6e8f-7031cca54b-235743341
+
+Example use cases:
+- Util packing
+- Dev tools in a box, host bind
+- Demo shipping
+- Production environments?
+- Supervisor systems inside of related set of docker container
 
 *** Overview
     :PROPERTIES:
@@ -145,16 +162,25 @@ vs explicit manual install from packages (lxc-docker, not docker.io)
     :ID:       c3ccfe02-b5bd-499c-964e-3c1315fb7378
     :ADDED:    [2014-05-21 Wed 21:03]
     :END:
-*** lxc hello world
+*** Google
+    :PROPERTIES:
+    :ID:       34ae7fa4-946c-4b32-aa78-82792849f401
+    :ADDED:    [2014-05-21 Wed 22:14]
+    :END:
+https://github.com/google/lmctfy
+*** lxc hello world                                                     :lab:
     :PROPERTIES:
     :ID:       e8da9436-ead6-4f41-a0d1-b9ba13ec4bf0
     :ADDED:    [2014-05-21 Wed 21:05]
     :END:
-*** docker hello world
+*** docker hello world                                                  :lab:
+    :PROPERTIES:
+    :ID:       98298b90-8890-4fd3-b780-0eb84b0c8db4
+    :END:
 - running a container in the foreground
 - running it in the background and inspecting the logs
 - running bash inside to inspect the env, network and file system
-*** Exploring Linux kernel subsystems involved in each hello world example 
+*** Exploring Linux kernel subsystems involved in each hello world example :lab:
     :PROPERTIES:
     :ID:       1b1e1863-0f90-4c20-a46e-d172003831c2
     :ADDED:    [2014-05-21 Wed 19:43]
@@ -169,7 +195,8 @@ lxc-info -n test
 lscgroup | grep lxc
 /var/lib/lxc/test/config
 ls /var/lib/lxc/test/ # tree
-lxc-attach -n test
+
+# lxc-attach -n test
 
 PID=$(lxc-info -p -n test | awk '{print $2}')
 CGROUPS=$(lscgroup | awk -F: '/test/ {print $1}' | paste -sd,)
@@ -184,32 +211,30 @@ inside() {
 
 #  http://jpetazzo.github.io/2014/03/23/lxc-attach-nsinit-nsenter-docker-0-9/
 
-    # no impact on cgroup of process
-    ls -al /proc/$PID/ns/
+# no impact on cgroup of process
+inside ls -al /proc/$PID/ns/
 
 # other uses http://uwsgi-docs.readthedocs.org/en/latest/Namespaces.html
 # exploring cgroups
-  tree -fd /sys/fs/cgroup/
-  tree -fd /sys/fs/cgroup/ | grep docker
-  tree -fd /sys/fs/cgroup/ | grep lxc
+tree -fd /sys/fs/cgroup/
+tree -fd /sys/fs/cgroup/ | grep docker
+tree -fd /sys/fs/cgroup/ | grep lxc
 
-  libcgroup / libcgroup-tools (ubuntu: cgroup-bin)
-  lssubsys
-  lscgroup
-  cgget
+libcgroup / libcgroup-tools (ubuntu: cgroup-bin)
+lssubsys
+lscgroup
+cgget
 
-  # to get list of cgroups docker is using
-  CGROUPS=$(lscgroup | awk -F: '/docker/ {print $1}' | paste -sd,)
-  # or awk -F: ORS=',' '/docker/ {print $1}' 
-  # but this leaves a trailiing comma
-  cgexec -g "$CGROUPS:/docker/$CID"
+# to get list of cgroups docker is using
+CGROUPS=$(lscgroup | awk -F: '/docker/ {print $1}' | paste -sd,)
+# or awk -F: ORS=',' '/docker/ {print $1}' 
+# but this leaves a trailiing comma
+cgexec -g "$CGROUPS:/docker/$CID"
 
-  mkdir -p /sys/fs/cgroup/net_prio/docker/$CID
-cgexec -g 'cpuset,net_prio,freezer,cpuacct,blkio,memory,cpu,devices:docker/a5f7d20ebfd8054e8097b2296724a89888c4e87dfc46d92b17a0ef50c3eff62c' cat /proc/self/cgroup
-  
-  apt-get install python-dev
-  pip install cgroup-utils
-  https://pypi.python.org/pypi/cgroup-utils/0.5
+# other tooling for working with cgroups:  
+#apt-get install python-dev
+#pip install cgroup-utils
+#https://pypi.python.org/pypi/cgroup-utils/0.5
 
 # working with procs / cgroups 
 ps -O cgroup
@@ -222,12 +247,24 @@ apt-get install ruby ruby-dev libcap-dev
 gem install cap2
 ruby -e "require 'pp'; require 'cap2'; pp Cap2.process($PID).getcaps[:effective]"
 #+end_src
-** Core Docker Concepts & Commands (9 - 10) 
+*** Interlude: Security
+    :PROPERTIES:
+    :ID:       0960adc9-f483-4ebd-b43d-dbad6a2fdc46
+    :ADDED:    [2014-05-21 Wed 20:26]
+    :END:
+**** Security & multi-tenant: caveat emptor
+**** point to selinux / apparmour, but not covered
+**** http://www.slideshare.net/jpetazzo/linux-containers-lxc-docker-and-security
+     :PROPERTIES:
+     :ID:       5b582877-19f7-4274-93c6-f2288474b29a
+     :ADDED:    [2014-05-21 Wed 20:27]
+     :END:
+** Core Docker Concepts & Commands & API (9:30 - 10:15) 
    :PROPERTIES:
    :ID:       22778ccc-9d88-41bf-aa8b-b552d4b990bc
    :ADDED:    [2014-05-21 Wed 19:33]
    :END:
-*** the daemon process and its options
+*** the daemon process and its options                                  :lab:
     :PROPERTIES:
     :ID:       c8cb5bcf-d467-405a-a979-2bd6a0ae5549
     :ADDED:    [2014-05-21 Wed 21:38]
@@ -255,6 +292,7 @@ ruby -e "require 'pp'; require 'cap2'; pp Cap2.process($PID).getcaps[:effective]
 - history
 - save/load
 - rmi
+- build ... covered later
 *** registries
     :PROPERTIES:
     :ID:       19ddd91d-f023-48b1-a52d-ccf4198a56e2
@@ -263,49 +301,99 @@ ruby -e "require 'pp'; require 'cap2'; pp Cap2.process($PID).getcaps[:effective]
 - push
 - pull
 - search
-*** http://docs.docker.io/use/workingwithrepository/
+**** http://docs.docker.io/use/workingwithrepository/
+     :PROPERTIES:
+     :ID:       ae573036-778f-4185-9a8c-59fb54b49eb8
+     :ADDED:    [2014-05-21 Wed 20:31]
+     :END:
+*** use the power of unix shell scripting
     :PROPERTIES:
-    :ID:       ae573036-778f-4185-9a8c-59fb54b49eb8
-    :ADDED:    [2014-05-21 Wed 20:31]
+    :ID:       4c758a3c-5fa1-43fb-b5ee-87f2ee5e96d5
     :END:
-** The API (10 - 10:20) 
-   :PROPERTIES:
-   :ID:       675f96b2-1890-4f4e-9611-5fdcf8207f87
-   :ADDED:    [2014-05-21 Wed 19:56]
-   :END:
-*** mention REST api but use Python wrapper
+http://stedolan.github.io/jq/manual/
+docker ps -a -q | xargs docker inspect | jq -c '.[] | {Name, exit: .State.ExitCode}
+
+some examples 
+http://www.wouterdanes.net/2014/04/16/some-docker-tips-and-tricks.html
+
+*** API via Python
     :PROPERTIES:
-    :ID:       3e1ce1cc-ff39-411e-804c-c300c97b2dbf
-    :ADDED:    [2014-05-21 Wed 21:32]
+    :ID:       675f96b2-1890-4f4e-9611-5fdcf8207f87
+    :ADDED:    [2014-05-21 Wed 19:56]
     :END:
-*** https://github.com/dotcloud/docker-py
-    :PROPERTIES:
-    :ID:       2ea9817a-368e-4185-aa24-b77a7ad3e896
-    :ADDED:    [2014-05-21 Wed 20:29]
-    :END:
-*** local via unix domain socket 
+**** mention REST api but use Python wrapper
+     :PROPERTIES:
+     :ID:       3e1ce1cc-ff39-411e-804c-c300c97b2dbf
+     :ADDED:    [2014-05-21 Wed 21:32]
+     :END:
+**** https://github.com/dotcloud/docker-py
+     :PROPERTIES:
+     :ID:       2ea9817a-368e-4185-aa24-b77a7ad3e896
+     :ADDED:    [2014-05-21 Wed 20:29]
+     :END:
+**** local via unix domain socket 
 - shareable via mount binds
-*** remote http auth
-*** differences between equivalent cli commands
-    * some commands & arguments are subtly different 
-*** using the api integrated into ansible & salt:
-   * http://docs.ansible.com/docker_module.html
-   * http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerio.html
-     See http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
-     for a great example of it in use.
-** Interlude: Security (10:20 - 10:30)
+**** remote http auth
+**** differences between equivalent cli commands
+     * some commands & arguments are subtly different 
+**** using the api integrated into ansible & salt:
+    * http://docs.ansible.com/docker_module.html
+    * http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerio.html
+      See http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
+      for a great example of it in use.
+*** cleaning up old unused containers & images
+** Build files (10:15 - 10:40)
    :PROPERTIES:
-   :ID:       0960adc9-f483-4ebd-b43d-dbad6a2fdc46
-   :ADDED:    [2014-05-21 Wed 20:26]
+   :ID:       823b78ff-37e7-45c3-a0ac-47cef34e8732
+   :ADDED:    [2014-05-21 Wed 20:35]
    :END:
-*** Security & multi-tenant: caveat emptor
-*** point to selinux / apparmour, but not covered
-*** http://www.slideshare.net/jpetazzo/linux-containers-lxc-docker-and-security
+*** Build files basics
+*** syntax & semantics
     :PROPERTIES:
-    :ID:       5b582877-19f7-4274-93c6-f2288474b29a
-    :ADDED:    [2014-05-21 Wed 20:27]
+    :ID:       c26f3efb-5a76-429f-9637-589fd57b0296
+    :ADDED:    [2014-05-22 Thu 12:59]
     :END:
-** Image Management & Volumes (10:30 - 11)
+*** docker build (and options) vs other approaches for creating images (tarball imports, etc.)
+*** choosing a base image
+    :PROPERTIES:
+    :ID:       ac762b38-dd72-47a5-9f2e-4764dd178614
+    :ADDED:    [2014-05-22 Thu 11:08]
+    :END:
+http://phusion.github.io/baseimage-docker/
+
+- for your own internal use VS sharing with the world
+  - for your own use, bake all your common utils and config into the base
+    - minimize size & layering
+  - for external use, keep the base light or even better use a common 3rd party base image
+*** integration with config management tools
+*** application packaging and configuration
+*** build vs http://www.packer.io/docs/builders/docker.html
+*** best practices 
+    :PROPERTIES:
+    :ID:       8cacf132-ebf9-4a96-8fcc-d84636900580
+    :ADDED:    [2014-05-22 Thu 11:10]
+    :END:
+**** http://crosbymichael.com/dockerfile-best-practices.html
+     :PROPERTIES:
+     :ID:       555f5ea3-9fc5-4041-a715-915dfcc72fde
+     :ADDED:    [2014-05-22 Thu 13:22]
+     :END:
+**** http://crosbymichael.com/dockerfile-best-practices-take-2.html
+     :PROPERTIES:
+     :ID:       05f1abb4-5b5e-49b6-b911-8475fa2c0beb
+     :ADDED:    [2014-05-22 Thu 15:41]
+     :END:
+**** http://www.projectatomic.io/docs/docker-image-author-guidance/
+     :PROPERTIES:
+     :ID:       7a6e90cd-00e2-4d1d-9d2c-ddb0dc980bba
+     :ADDED:    [2014-05-22 Thu 13:23]
+     :END:
+**** use exec http://www.tech-d.net/2014/01/27/docker-quicktip-2-exec-it/
+     :PROPERTIES:
+     :ID:       2cdcd5a7-a45b-498e-80b7-8dc87c0f609d
+     :ADDED:    [2014-05-21 Wed 21:34]
+     :END:
+** Image Management & Volumes (10:40 - 11:15)
    :PROPERTIES:
    :ID:       073630ca-167f-4b37-8778-3ce23aab2b58
    :ADDED:    [2014-05-21 Wed 19:57]
@@ -314,36 +402,22 @@ ruby -e "require 'pp'; require 'cap2'; pp Cap2.process($PID).getcaps[:effective]
 *** trusted builds
 *** using a private registry
 *** host bind mounts of volumes
-*** -volumes-from for data volume sharing & backup
+*** avoid vfs volumes if you can
+*** -volumes-from for data volume sharing
     http://docs.docker.io/use/working_with_volumes/
-*** management of application data (e.g. postgresql data/)
-*** using btrfs for snapshots of data volumes
+*** management of application data (e.g. postgresql data/) in volumes
+https://github.com/discordianfish/docker-exporter/
+https://github.com/discordianfish/docker-backup/
+https://github.com/discordianfish/docker-lloyd/ backs up to s3
+or use btrfs snapshots + send/receive
+
 *** TLC, Garbage Collection and Handling Docker Upgrades
-*** cleaning up old unused containers & images
-*** vfs volumes
 *** Running Postgresql and Other DBs
     :PROPERTIES:
     :ID:       ca0ed577-3aee-4aae-bd7a-4fbd0f4bd710
     :ADDED:    [2014-05-21 Wed 20:59]
     :END:
-** Build files (11 - 11:20)
-   :PROPERTIES:
-   :ID:       823b78ff-37e7-45c3-a0ac-47cef34e8732
-   :ADDED:    [2014-05-21 Wed 20:35]
-   :END:
-*** Build files basics
-*** docker build (and options)
-*** vs other approaches for creating images (tarball imports, etc.)
-*** integration with config management tools
-*** application packaging and configuration
-*** which base images should you use?
-*** vs http://www.packer.io/docs/builders/docker.html
-*** use exec http://www.tech-d.net/2014/01/27/docker-quicktip-2-exec-it/
-    :PROPERTIES:
-    :ID:       2cdcd5a7-a45b-498e-80b7-8dc87c0f609d
-    :ADDED:    [2014-05-21 Wed 21:34]
-    :END:
-** Networking (11:20 - 12)
+** Networking (11:15 - 12:10)
    :PROPERTIES:
    :ID:       a0e574fa-3f73-46ed-9ed9-9b1caeb6fb0f
    :ADDED:    [2014-05-21 Wed 20:20]
@@ -353,30 +427,6 @@ ruby -e "require 'pp'; require 'cap2'; pp Cap2.process($PID).getcaps[:effective]
     :ID:       87b2c49d-22d4-4e72-9943-5209ef36af2f
     :ADDED:    [2014-05-21 Wed 21:04]
     :END:
-*** exposing ports and binding to host interfaces
-*** dns options
-*** network bridging
-*** intercontainer networking 
-   via -icc or custom bridges and lxc network options
-*** host networking in docker 0.11
-*** sharing unix domain sockets & fifos between containers
-*** trouble-shooting
-*** -icc=false vs true with iptables -Ln
-    same with links
-    see diagrams in http://www.slideshare.net/hansode/hack-for-dockers-network
-*** configuring alternate local network topologies via pipework
-*** software defined networking via Open vSwitch
-    http://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/
-    https://gist.github.com/noteed/8656989
-*** simpler gre tunnels
-    http://tier.cs.berkeley.edu/drupal/howto/ip-tunnel-using-gre-on-linux
-    http://tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.gre.html
-    be aware of mtu size issue http://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/13725-56.html
-*** docker inside of ec2 VPC
-    http://serverfault.com/questions/568736/expose-docker-containers-to-vpc-network
-*** overhead of various approaches
-*** resources for learning more about advanced linux networking
-
 #+begin_src txt
   tcpdump -i docker0
 
@@ -392,6 +442,45 @@ ip netns exec $CID netstat -i
 ip netns exec $CID tcpdump ...
 ip netns exec $CID ss 
 #+end_src
+*** exposing ports and binding to host interfaces
+*** dns options
+*** intercontainer networking 
+   via -icc or custom bridges and lxc network options
+*** -icc=false vs true with iptables -Ln
+    same with links
+    see diagrams in http://www.slideshare.net/hansode/hack-for-dockers-network
+*** network bridging
+*** sharing unix domain sockets & fifos between containers
+*** host networking in docker 0.11
+*** trouble-shooting
+*** configuring alternate local network topologies via pipework
+*** software defined networking via Open vSwitch
+    http://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/
+    https://gist.github.com/noteed/8656989
+    https://communities.vmware.com/blogs/kevinbarrass for vmware examples that are also relevant
+    http://networkstatic.net/open-vswitch-gre-tunnel-configuration/
+*** simpler gre tunnels
+    http://tier.cs.berkeley.edu/drupal/howto/ip-tunnel-using-gre-on-linux
+    http://tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.gre.html
+    be aware of mtu size issue http://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/13725-56.html
+*** overhead of various approaches
+*** resources
+**** docker inside of ec2 VPC
+     http://serverfault.com/questions/568736/expose-docker-containers-to-vpc-network
+**** docker openvpn
+     :PROPERTIES:
+     :ID:       cacf2610-2905-4a5e-8203-7d67b52e011c
+     :ADDED:    [2014-05-22 Thu 14:20]
+     :END:
+http://blog.docker.io/2013/09/docker-joyent-openvpn-bliss/
+**** advanced linux networking 
+     :PROPERTIES:
+     :ID:       7634a432-25b3-4496-b629-5b6462c16fd3
+     :ADDED:    [2014-05-22 Thu 14:17]
+     :END:
+http://www.lartc.org/
+https://wiki.archlinux.org/index.php/Advanced_Traffic_Control
+https://www.digitalocean.com/community/articles/how-to-use-iproute2-tools-to-manage-network-configuration-on-a-linux-vps
 *** Managing OpenVPN
     :PROPERTIES:
     :ID:       f512858b-62e8-44af-ab08-d79bdd132503
@@ -407,18 +496,74 @@ ip netns exec $CID ss
    :ID:       d80c06cd-8e5f-46d7-88a7-dd9f02197620
    :ADDED:    [2014-05-21 Wed 19:28]
    :END:
-*** TODO copy links from my email
-*** logging via stdout
-*** logging via syslog or logstash to a log service container
-*** logging via bind mount of /dev/log /dev/kmsg
-    similar to lxc.kmsg
-*** docker events api
+*** logging currently sucks & is being worked on
+https://groups.google.com/forum/m/#!topic/docker-dev/3paGTWD6xyw
+*** container logging options
+    :PROPERTIES:
+    :ID:       9de6391f-6144-48aa-ac8d-21b03c2129d5
+    :ADDED:    [2014-05-22 Thu 11:02]
+    :END:
+**** using logentries service for demo
+    :PROPERTIES:
+    :ID:       6d111548-449e-47bd-8728-09128f3f3a2c
+    :ADDED:    [2014-05-21 Wed 22:03]
+    :END:
+wget https://raw.github.com/logentries/le/master/install/linux/logentries_install.sh && sudo bash logentries_install.sh
+https://logentries.com
+https://blog.logentries.com/2014/03/how-to-run-rsyslog-in-a-docker-container-for-logging/
+
+**** logging via stdout of container
+
+docker run --name logtest -d busybox sh -c "while true; do uptime; sleep 5; done"
+docker logs -f -t logtest | logger -t 'docker:logtest'
+docker run --name logtest2 busybox sh -c "while true; do uptime; sleep 5; done" | logger -t 'docker:direct'
+**** logging via syslog or logstash to a log service container
+**** logging via bind mount of /dev/log /dev/kmsg
+     similar to lxc.kmsg
+**** ugly hacks watching docker's file system
+    :PROPERTIES:
+    :ID:       183171c2-48d6-40a7-9232-c1339fcdb8fd
+    :ADDED:    [2014-05-21 Wed 23:05]
+    :END:
+http://jasonwilder.com/blog/2014/03/17/docker-log-management-using-fluentd/
+*** docker events api 
+- severely limited at the moment
+- only container events are shown
+- will not survive daemon restart
+https://github.com/discordianfish/docker-spotter
+
+*** agent on host that uses docker inspect to get details of each create event 
+    :PROPERTIES:
+    :ID:       f5ddc4de-4e3e-4845-9b30-6de06db4eeed
+    :ADDED:    [2014-05-21 Wed 23:06]
+    :END:
+
+#+begin_src sh
+
+graph_root=/lxc/docker
+container_creations() {
+  docker events --since "1" | awk '/create/ {gsub(":",""); print $5; fflush()}'
+}
+
+log_creations() {
+  local config_file
+  while IFS= read -r cid; do 
+     docker inspect "$cid" | jq -M -c '.[]'
+  done
+}
+
+watch_containers() {
+ container_creations | log_creations
+}
+
+
+#+end_src
 *** linux cgroup stats via /proc
     http://blog.docker.io/2013/10/gathering-lxc-docker-containers-metrics/
 *** monitoring container disk space usage
 *** https://github.com/samalba/docker-cache
 *** host / container / app monitoring with sensu
-** Processes & Supervision (1:20 - 1:40) 
+** Processes & Supervision (1:20 - 2) 
    :PROPERTIES:
    :ID:       94f50503-70aa-41a6-8c20-bfe184b282d0
    :ADDED:    [2014-05-21 Wed 20:37]
@@ -427,6 +572,19 @@ ip netns exec $CID ss
     counter args: http://phusion.github.io/baseimage-docker/
 *** versus more traditional vm-like init + procs
 *** tradeoffs and use cases for each
+*** using init
+    :PROPERTIES:
+    :ID:       27c2af21-00a6-4172-8212-b838bee06c38
+    :ADDED:    [2014-05-22 Thu 15:44]
+    :END:
+using runit
+http://tech.paulcz.net/2013/10/managing-docker-services-with-this-one-easy-trick.html
+*** using supervisord
+    :PROPERTIES:
+    :ID:       72e09117-ebe9-4dd8-addc-3e8a57cd0b23
+    :ADDED:    [2014-05-22 Thu 15:44]
+    :END:
+http://docs.docker.io/examples/using_supervisord/
 *** process supervision within and between containers
 *** my hack for attaching privileged processes 
     :PROPERTIES:
@@ -439,7 +597,12 @@ ip netns exec $CID ss
     :ADDED:    [2014-05-21 Wed 21:10]
     :END:
 http://docs.docker.io/use/host_integration/
-** Docker for Dev / Testing / CI
+*** supervising other containers from a supervisor container
+    :PROPERTIES:
+    :ID:       9f7faf84-8662-40fd-8a51-edfd368edf3a
+    :ADDED:    [2014-05-22 Thu 13:13]
+    :END:
+** Docker for Dev / Simulations / Testing / CI (2 - 3)
    :PROPERTIES:
    :ID:       430030e3-d06a-4ec1-a8ea-e6f89dca6452
    :ADDED:    [2014-05-21 Wed 20:43]
@@ -449,9 +612,20 @@ http://docs.docker.io/use/host_integration/
     :ID:       f9b03753-b69f-409f-a494-d602e9303955
     :ADDED:    [2014-05-21 Wed 20:58]
     :END:
+
+From the authors of Fig
+https://github.com/orchardup/docker-jenkins/blob/master/Dockerfile
+
+http://www.ebaytechblog.com/2014/04/04/delivering-ebays-ci-solution-with-apache-mesos-part-i/#.U3yrPIm9LCS
+
 *** Blockade http://blockade.readthedocs.org for Testing Network Failures
-*** https://github.com/drone/drone
-** Docker for Image / Artifact Packing
+*** resources
+**** https://github.com/drone/drone
+     :PROPERTIES:
+     :ID:       b205814e-de55-473f-86f8-362c19fe1141
+     :ADDED:    [2014-05-22 Thu 14:16]
+     :END:
+** Docker for Image / Artifact Packing (3 - 3:10)
    :PROPERTIES:
    :ID:       a9a49e9e-f1d4-4af6-859e-993fe7af2e42
    :ADDED:    [2014-05-21 Wed 20:52]
@@ -459,36 +633,78 @@ http://docs.docker.io/use/host_integration/
 - vs chroot
 - vs lxc
 - vs packer
-** Docker for Production
+** Docker for Production (3:10 - 4:30)
    :PROPERTIES:
    :ID:       50851891-f4fc-4d70-bc11-143d2503aaeb
    :ADDED:    [2014-05-21 Wed 20:43]
    :END:
 *** http://12factor.net/
-*** Docker buildfiles / containers as the unit of composition
-*** vs other units of composition
+*** Docker buildfiles / containers as the unit of composition vs other units of composition
+- mutable long-lived physical boxes or vms
+  - snow-flakes
+  - config managed
+- mutable but short-lived vms
+- immutable vms
+*** Public Cloud economics & performance
     :PROPERTIES:
-    :ID:       bf3434e0-0db4-4988-bb4c-f97f747ef147
-    :ADDED:    [2014-05-21 Wed 20:59]
+    :ID:       1ae0e1f3-2ba6-474c-98e6-cc5e3156eb0d
+    :ADDED:    [2014-05-21 Wed 20:56]
     :END:
-*** Service Discovery & Inter-container Relationships
+- better packing and utilization
+- remember it's still not native performance. 
+- good usage of docker won't add much extra overhead but you're already virtualized
+*** Key components and concerns
     :PROPERTIES:
-    :ID:       ee006781-4b90-452c-93b5-fe3a519a0e2e
-    :ADDED:    [2014-05-21 Wed 20:44]
+    :ID:       ed80ff43-931d-4391-99b4-b717e33645fe
+    :ADDED:    [2014-05-22 Thu 14:03]
     :END:
-**** simple inter-container links and problems with this approach
-**** more sophisticated and reliable approaches
+**** Service Discovery & Inter-Container Relationships
+     :PROPERTIES:
+     :ID:       ee006781-4b90-452c-93b5-fe3a519a0e2e
+     :ADDED:    [2014-05-21 Wed 20:44]
+     :END:
+***** simple inter-container links and problems with this approach
+***** more sophisticated and reliable approaches
 - good overview http://jasonwilder.com/blog/2014/02/04/service-discovery-in-the-cloud/
 - DNS with skydock
 - mention ZK
 - etcd
 - *consul.io*
-**** haproxy combined with other options
+***** haproxy combined with other options
 - a la Airbnb's SmartStack
-**** Ambassador pattern
+***** Ambassador pattern
 - http://www.centurylinklabs.com/deploying-multi-server-docker-apps-with-ambassadors/
 - http://www.centurylinklabs.com/linking-docker-containers-with-a-serf-ambassador/
-
+**** monitoring, logging and metrics (see earlier in the day)
+     :PROPERTIES:
+     :ID:       37ce08d7-98ae-4e70-a33b-5aff6645f07e
+     :ADDED:    [2014-05-22 Thu 14:01]
+     :END:
+**** backup and data management
+     :PROPERTIES:
+     :ID:       79ce91ce-7cda-4aa5-b508-c5702afb70e8
+     :ADDED:    [2014-05-22 Thu 14:04]
+     :END:
+- use host mount-bind volumes (see earlier in day)
+**** high-availability & load balancing
+     :PROPERTIES:
+     :ID:       1fb1ea4f-780d-4dd5-97c4-19ab31a17817
+     :ADDED:    [2014-05-22 Thu 14:15]
+     :END:
+https://github.com/discordianfish/haproxy-docker/blob/master/README.md
+http://brianketelsen.com/2014/02/25/using-nginx-confd-and-docker-for-zero-downtime-web-updates/
+http://www.centurylinklabs.com/auto-loadbalancing-with-fig-haproxy-and-serf/
+**** orchestration & config management
+    :PROPERTIES:
+    :ID:       9f1178aa-cc4a-42d6-af9f-5f607d17e878
+    :ADDED:    [2014-05-22 Thu 14:01]
+    :END:
+- use what you know best
+  - salt
+  - ansible
+  - puppet
+  - chef
+  - etc.
 *** Application Lifecycle
     :PROPERTIES:
     :ID:       760ee26a-c1a1-4246-8329-af5d36c6f1e7
@@ -497,51 +713,40 @@ http://docs.docker.io/use/host_integration/
 **** options for handling of releases and configuration changes
 **** atomic changes
 **** rollback option via layers/tags
-**** backup of data in volumes
-     :PROPERTIES:
-     :ID:       8a2a9830-3506-4feb-88cc-fe123d7c89e0
-     :ADDED:    [2014-05-21 Wed 20:47]
-     :END:
 *** Resource limits
     :PROPERTIES:
     :ID:       d10c7d85-5781-4d31-a688-3c28dfe47a80
     :ADDED:    [2014-05-21 Wed 20:48]
     :END:
 **** via docker run options
-     * cpu -c --cpu-shares
-     * memory -m --memory
+- cpu -c --cpu-shares
+- memory -m --memory
 **** using cgroups
-     * disk IO
-     * network bandwith with tc
-     * reading material
-     http://www.oracle.com/technetwork/articles/servers-storage-admin/resource-controllers-linux-1506602.html
-     https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Resource_Management_Guide/ch-Subsystems_and_Tunable_Parameters.html
-     http://fritshoogland.wordpress.com/2012/12/15/throttling-io-with-linux/
+- disk IO
+- network bandwith with tc
+- reading material
+   http://www.oracle.com/technetwork/articles/servers-storage-admin/resource-controllers-linux-1506602.html
+   https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Resource_Management_Guide/ch-Subsystems_and_Tunable_Parameters.html
+   http://fritshoogland.wordpress.com/2012/12/15/throttling-io-with-linux/
 **** external enforced limits
-     * disk space quotas
-*** Cloud economics & performance
-    :PROPERTIES:
-    :ID:       1ae0e1f3-2ba6-474c-98e6-cc5e3156eb0d
-    :ADDED:    [2014-05-21 Wed 20:56]
-    :END:
-- better packing and utilization
-- remember it's still not native performance
+- disk space quotas
+- public cloud provider tools
 *** PaaS like tools for Docker
     :PROPERTIES:
     :ID:       db38f8b0-e12d-45a2-80cc-63f333ba24fc
     :ADDED:    [2014-05-21 Wed 20:55]
     :END:
-  - https://flynn.io/
-  - https://github.com/progrium/dokku
-  - https://github.com/opdemand/deis
-  - http://solum.io/ via openstack https://wiki.openstack.org/wiki/Docker
-  - http://www.projectatomic.io/
 **** Host OS Integration / Orchestration, etc.
    - coreos.com
    - https://github.com/boot2docker/boot2docker
    - http://orchardup.github.io/fig/ (focused on dev envs)
    - https://github.com/signalfuse/maestro-ng
-**** elastic beanstalk http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_console.html
+**** ec2 elastic beanstalk http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_console.html
+**** https://github.com/GoogleCloudPlatform/container-agent
+     :PROPERTIES:
+     :ID:       e01ed32b-395d-4c97-b97b-64525747f0f7
+     :ADDED:    [2014-05-22 Thu 14:05]
+     :END:
 **** CoreOS and Cluster Deployment with Fleet
      :PROPERTIES:
      :ID:       0a415487-e6e1-4017-97b5-33a7bc5acc07
@@ -550,6 +755,16 @@ http://docs.docker.io/use/host_integration/
 **** https://github.com/progrium/dokku
 **** https://github.com/opdemand/deis
 **** https://flynn.io/
+**** http://www.projectatomic.io/
+     :PROPERTIES:
+     :ID:       771d6776-eaf4-4e1a-866b-3515bdd4a18f
+     :ADDED:    [2014-05-22 Thu 14:05]
+     :END:
+**** http://solum.io/ via openstack https://wiki.openstack.org/wiki/Docker
+     :PROPERTIES:
+     :ID:       637b8ea8-d4ab-49be-ad40-ca30d1a954cf
+     :ADDED:    [2014-05-22 Thu 14:06]
+     :END:
 **** with mesos https://github.com/mesosphere/mesos-docker
      :PROPERTIES:
      :ID:       d6dc52fb-b802-4b5c-8813-054b6d5b6827
@@ -574,8 +789,11 @@ http://docs.docker.io/use/host_integration/
   - think critically, measure, test, and monitor
   - what is your unit of deployment
 - be wary of the less used backend drivers which haven't had much battle testing yet
-- pay attention to error reporting and handling. How does your
-  infrastructure handle the unhappy path.
+  - e.g. lvm
+  - use device-mapper, btrfs or aufs
+  - use libcontainer instead of lxc execution engine
+- pay attention to error reporting and handling. 
+  How does your infrastructure handle the unhappy path.
 - keep an eye on the issues on github for bugs that may affect you
 - try to develop your apps & systems so you can deploy to docker OR
   elsewhere. There is no need to lock yourself into docker-only
