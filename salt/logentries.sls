@@ -32,6 +32,9 @@ logentries-registered:
         touch /tmp/logentries-updated
     - unless: le whoami | grep -v required && [[ ! -e /tmp/logentries-kick ]]
 
+/etc/rsyslog.conf:
+  file.exists
+
 rsyslog:
   service.running:
     - enable: True
