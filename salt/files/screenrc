@@ -1,0 +1,50 @@
+# -*- conf -*-
+shell -${SHELL}
+msgwait 0.1
+multiuser on
+defutf8 on
+
+defmousetrack off
+mousetrack off
+
+# bigger scroll size
+defscrollback 24768
+rendition so =b by
+
+# make search case-insensitive
+ignorecase on
+
+# prevent screen xoff freezing
+bind s
+
+# region movement (also done with cmb-tab)
+bind j focus down
+bind k focus up
+bind t focus top
+bind b focus bottom
+
+caption always '%{= kw}%-w%{= KW}%n %t%{-}%+w %= %?%P%{.rw}P%:%?'
+
+# ------------------------------------------------------------------------------
+# Set some Copy Mode key bindings                                                                                                                                        # ------------------------------------------------------------------------------
+
+# emacs keybindings for navigation in copy mode
+markkeys ^B=Y:^F=V:h=^B:l=^F:0=^A:$=^E
+
+# C-g and other keys quit copy mode. Esc does nothing.
+# Only C-g, Esc, and C-space break out of i-search. So, use Esc because
+# it doesn't break out of copy mode and keeps the cursor position.
+markkeys \033=\015=^G=^D=h=j=k=l=H=M=L=G=g=y=c=v=a=x=b=e=B=E=w
+markkeys @=\033
+
+# special hack for C-e, since it should go *past* the last char.
+# (-m means this is for copy mode only.)
+bindkey -m ^e stuff "\$^f"
+
+# page up and page down
+bindkey -m -k kP stuff Y
+bindkey -m -k kN stuff V
+
+# C-space sets mark.
+markkeys ' '=^@
+
