@@ -207,11 +207,8 @@ inside() {
   # can be used to do things inside that are otherwise not allowed by lxc or docker
   # such as additional mount points, routing changes etc.
 }
-# cat /proc/self/cgroup
 
-#  http://jpetazzo.github.io/2014/03/23/lxc-attach-nsinit-nsenter-docker-0-9/
-
-# no impact on cgroup of process
+inside cat /proc/self/cgroup
 inside ls -al /proc/$PID/ns/
 
 # other uses http://uwsgi-docs.readthedocs.org/en/latest/Namespaces.html
@@ -226,9 +223,7 @@ lscgroup
 cgget
 
 # to get list of cgroups docker is using
-CGROUPS=$(lscgroup | awk -F: '/docker/ {print $1}' | paste -sd,)
-# or awk -F: ORS=',' '/docker/ {print $1}' 
-# but this leaves a trailiing comma
+CGROUPS=$(lscgroup | awk -F: '/docker/ {print $1}' | uniq | paste -sd,)
 cgexec -g "$CGROUPS:/docker/$CID"
 
 # other tooling for working with cgroups:  
@@ -239,14 +234,17 @@ cgexec -g "$CGROUPS:/docker/$CID"
 # working with procs / cgroups 
 ps -O cgroup
 ps -e -O cgroup
-cat /proc/PID/cgroup
+cat /proc/$PID/cgroup
 alias psc='ps xawf -eo pid,user,cgroup,args'
-
 
 apt-get install ruby ruby-dev libcap-dev
 gem install cap2
 ruby -e "require 'pp'; require 'cap2'; pp Cap2.process($PID).getcaps[:effective]"
+
 #+end_src
+
+... examine /usr/local/bin/dockhack and continue exploring with it
+
 *** Interlude: Security
     :PROPERTIES:
     :ID:       0960adc9-f483-4ebd-b43d-dbad6a2fdc46
@@ -342,7 +340,7 @@ http://www.wouterdanes.net/2014/04/16/some-docker-tips-and-tricks.html
       See http://thomason.io/automating-application-deployments-across-clouds-with-salt-and-docker/
       for a great example of it in use.
 *** cleaning up old unused containers & images
-** Build files (10:15 - 10:40)
+** Build files (10:15 - 10:45)
    :PROPERTIES:
    :ID:       823b78ff-37e7-45c3-a0ac-47cef34e8732
    :ADDED:    [2014-05-21 Wed 20:35]
@@ -393,7 +391,7 @@ http://phusion.github.io/baseimage-docker/
      :ID:       2cdcd5a7-a45b-498e-80b7-8dc87c0f609d
      :ADDED:    [2014-05-21 Wed 21:34]
      :END:
-** Image Management & Volumes (10:40 - 11:15)
+** Image Management & Volumes (10:45 - 11:20)
    :PROPERTIES:
    :ID:       073630ca-167f-4b37-8778-3ce23aab2b58
    :ADDED:    [2014-05-21 Wed 19:57]
@@ -417,7 +415,7 @@ or use btrfs snapshots + send/receive
     :ID:       ca0ed577-3aee-4aae-bd7a-4fbd0f4bd710
     :ADDED:    [2014-05-21 Wed 20:59]
     :END:
-** Networking (11:15 - 12:10)
+** Networking (11:20 - 12)
    :PROPERTIES:
    :ID:       a0e574fa-3f73-46ed-9ed9-9b1caeb6fb0f
    :ADDED:    [2014-05-21 Wed 20:20]
@@ -428,8 +426,6 @@ or use btrfs snapshots + send/receive
     :ADDED:    [2014-05-21 Wed 21:04]
     :END:
 #+begin_src txt
-  tcpdump -i docker0
-
 CID=short sha
 TASKS=/sys/fs/cgroup/devices/docker/$CID*/tasks
 PID=$(head -n 1 $TASKS) # use --format instead
@@ -453,6 +449,7 @@ ip netns exec $CID ss
 *** sharing unix domain sockets & fifos between containers
 *** host networking in docker 0.11
 *** trouble-shooting
+tcpdump -i docker0
 *** configuring alternate local network topologies via pipework
 *** software defined networking via Open vSwitch
     http://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/
@@ -481,11 +478,6 @@ http://blog.docker.io/2013/09/docker-joyent-openvpn-bliss/
 http://www.lartc.org/
 https://wiki.archlinux.org/index.php/Advanced_Traffic_Control
 https://www.digitalocean.com/community/articles/how-to-use-iproute2-tools-to-manage-network-configuration-on-a-linux-vps
-*** Managing OpenVPN
-    :PROPERTIES:
-    :ID:       f512858b-62e8-44af-ab08-d79bdd132503
-    :ADDED:    [2014-05-21 Wed 21:01]
-    :END:
 * Afternoon 1-5
   :PROPERTIES:
   :ID:       94fc851e-8431-4843-952a-72a8e38dc717
@@ -694,6 +686,10 @@ http://www.ebaytechblog.com/2014/04/04/delivering-ebays-ci-solution-with-apache-
 https://github.com/discordianfish/haproxy-docker/blob/master/README.md
 http://brianketelsen.com/2014/02/25/using-nginx-confd-and-docker-for-zero-downtime-web-updates/
 http://www.centurylinklabs.com/auto-loadbalancing-with-fig-haproxy-and-serf/
+
+saltstack in ha: same principles apply to docker+salt
+https://www.youtube.com/watch?v=R1bEEzwYeqk&app=desktop
+
 **** orchestration & config management
     :PROPERTIES:
     :ID:       9f1178aa-cc4a-42d6-af9f-5f607d17e878
