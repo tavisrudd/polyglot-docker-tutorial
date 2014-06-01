@@ -1,6 +1,8 @@
 /usr/local/bin/dockhack:
   file.managed:
-    - source: salt://scripts/dockhack
+    - source: https://raw.githubusercontent.com/tavisrudd/dockhack/master/dockhack
+    - source_hash: 510918b469d9d678df7bc3fa098c6794
+    # from commit 341061d on May 30, 2014
     - mode: 755
 
 /root/bin/start:
