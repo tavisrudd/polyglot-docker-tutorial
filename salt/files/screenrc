@@ -52,5 +52,9 @@ markkeys ' '=^@
 # ------------------------------------------------------------------------------
 # logging
 # ------------------------------------------------------------------------------
-logdir /root/screenlogs/
+screen 0
+title "master class"
+
+logfile '/root/screenlogs/screenlog.%n'
+logfile flush 3
 log on
