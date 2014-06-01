@@ -2,114 +2,118 @@ minion_ec2:
   - j-martin:
       minion:
         grains:
-          student: Jean-Martin Archer  
+          student: Jean-Martin Archer
   - jeks313:
       minion:
         grains:
-          student: Christopher Hyde    
+          student: Christopher Hyde
   - preradio:
       minion:
         grains:
-          student: Jason Fowler        
+          student: Jason Fowler
   - rsalmond:
       minion:
         grains:
-          student: Rob Salmond         
+          student: Rob Salmond
   - jingweno:
       minion:
         grains:
-          student: Owen Ou             
+          student: Owen Ou
   - jdrivas:
       minion:
         grains:
-          student: David                
+          student: David
   - ddossot:
       minion:
         grains:
-          student: David Dossot        
+          student: David Dossot
   - simstre:
       minion:
         grains:
-          student: Chris Sim           
+          student: Chris Sim
   - rpbeier:
       minion:
         grains:
-          student: Richard Beier       
+          student: Richard Beier
   - kyoung:
       minion:
         grains:
-          student: Kyle Young          
+          student: Kyle Young
   - cheempz:
       minion:
         grains:
-          student: Lin Lin             
+          student: Lin Lin
   - pierrebeugnot:
       minion:
         grains:
-          student: Pierre Beugnot      
+          student: Pierre Beugnot
   - mmercer-appneta:
       minion:
         grains:
-          student: Matt Mercer         
+          student: Matt Mercer
   - willx0:
       minion:
         grains:
-          student: Will Law            
+          student: Will Law
   - nisanharamati:
       minion:
         grains:
-          student: Nisan Haramati      
+          student: Nisan Haramati
   - ppickfor:
       minion:
         grains:
-          student: Peter Pickford      
+          student: Peter Pickford
   - cspicer:
       minion:
         grains:
-          student: Chris Spicer        
+          student: Chris Spicer
   - briandorsey:
       minion:
         grains:
-          student: Brian Dosrsey        
+          student: Brian Dosrsey
   - captainkrtek:
       minion:
         grains:
-          student: Steven Richards     
+          student: Steven Richards
   - jasonandres:
       minion:
         grains:
-          student: Jason Andres        
+          student: Jason Andres
   - markeijsermans:
       minion:
         grains:
-          student: Mark Eijsermans     
+          student: Mark Eijsermans
   - grantdiener:
       minion:
         grains:
-          student: Grant Diener     
+          student: Grant Diener
   - lkysow:
       minion:
         grains:
-          student: Luke Kysow         
+          student: Luke Kysow
   - kyledemeule:
       minion:
         grains:
-          student: Kyle Demeule     
+          student: Kyle Demeule
   - robbles:
       minion:
         grains:
-          student: Rob O'Dwyer       
+          student: Rob O'Dwyer
   - MightyMel:
       minion:
         grains:
-          student: Vincenzo Melandri 
+          student: Vincenzo Melandri
   - enathaniel:
       minion:
         grains:
-          student: Edwin Nathaniel     
+          student: Edwin Nathaniel
   - sshi100:
       minion:
         grains:
-          student: Steven Shi       
+          student: Steven Shi
+  - extra1
+  - extra2
+  - extra3
+  - extra4
 
 # Barry            barry.steyn
