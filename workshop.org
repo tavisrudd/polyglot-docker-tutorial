@@ -624,9 +624,17 @@ http://www.ebaytechblog.com/2014/04/04/delivering-ebays-ci-solution-with-apache-
    :ID:       a9a49e9e-f1d4-4af6-859e-993fe7af2e42
    :ADDED:    [2014-05-21 Wed 20:52]
    :END:
+
+If output is a single flat image:
 - vs chroot
 - vs lxc
 - vs packer
+
+If output is a diff or layered set of diffs against a base image:
+- vs git, hg etc.
+- vs btrfs or zfs snapshots + send/receive
+- vs manually combining squashfs & unionfs http://tldp.org/HOWTO/SquashFS-HOWTO/creatingandusing.html
+
 ** Docker for Production (3:10 - 4:30)
    :PROPERTIES:
    :ID:       50851891-f4fc-4d70-bc11-143d2503aaeb
