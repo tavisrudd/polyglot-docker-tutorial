@@ -451,6 +451,15 @@ ip netns exec $CID ss
 *** host networking in docker 0.11
 *** trouble-shooting
 tcpdump -i docker0
+*** -mtu option to docker daemon for when default is too large
+    :PROPERTIES:
+    :ID:       0756700b-e327-4225-a884-17cfd0fcaba4
+    :ADDED:    [2014-06-02 Mon 23:52]
+    :END:
+- over gre tunnels 
+- or in ec2 with large mtu default on eth0
+  https://groups.google.com/forum/#!topic/docker-user/9klZLLPFG1I
+
 *** configuring alternate local network topologies via pipework
 *** software defined networking via Open vSwitch
     http://goldmann.pl/blog/2014/01/21/connecting-docker-containers-on-multiple-hosts/
